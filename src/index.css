@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap");
+@import "tailwindcss";
+
+/* Habilita a variante `light:` (o padrão sem prefixo continua sendo o tema escuro atual) */
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  /* Paleta de superfícies do tema escuro (padrão) — use via bg-surface, bg-surface-sunken etc. */
+  --color-surface: #0a0e17;
+  --color-surface-sunken: #0b0f1a;
+  --color-surface-raised: #11182b;
+  --color-surface-card: #0d1321;
+  --color-ink: #e2e8f0;
+}
+
+:root.light {
+  --color-surface: #f8fafc;
+  --color-surface-sunken: #f1f5f9;
+  --color-surface-raised: #ffffff;
+  --color-surface-card: #ffffff;
+  --color-ink: #1e293b;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+:root.light {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Flash de destaque na seção para onde a sidebar acabou de navegar */
+@keyframes category-flash {
+  0% {
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.9), 0 0 28px rgba(251, 191, 36, 0.45);
+    background-color: rgba(251, 191, 36, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0);
+    background-color: transparent;
+  }
+}
+
+.category-highlight {
+  animation: category-flash 2s ease-out;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 var(--color-surface);
+}
+
+.light * {
+  scrollbar-color: #cbd5e1 var(--color-surface);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
