@@ -11,7 +11,7 @@ export function SearchBar({
   const { t } = useLocale();
 
   return (
-    <div className="relative w-[300px] max-w-md">
+    <div className="relative w-full lg:w-[300px] lg:max-w-md">
       <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 light:text-slate-500" />
       <input
         type="text"

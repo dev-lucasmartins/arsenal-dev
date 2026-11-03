@@ -18,7 +18,7 @@ export function ItemDetailPage() {
 
   if (!item) {
     return (
-      <main className="flex-1 overflow-y-auto px-6 py-6">
+      <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
         <BackLink />
         <p className="mt-6 text-slate-400 light:text-slate-600">{t.itemNotFound}</p>
       </main>
@@ -29,22 +29,22 @@ export function ItemDetailPage() {
   const content = getItemContent(item.id, locale)
 
   return (
-    <main className="flex-1 overflow-y-auto px-6 py-6">
+    <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-2xl">
         <BackLink />
 
-        <header className="mt-4 flex items-start gap-4 border-b border-slate-700/60 light:border-slate-200 pb-6">
+        <header className="mt-4 flex items-start gap-3 border-b border-slate-700/60 light:border-slate-200 pb-6 sm:gap-4">
           <span
             className={cn(
-              'flex h-20 w-20 shrink-0 items-center justify-center rounded-md border-2 bg-surface-raised',
+              'flex h-14 w-14 shrink-0 items-center justify-center rounded-md border-2 bg-surface-raised sm:h-20 sm:w-20',
               style.border,
               style.glow,
             )}
           >
-            <ConceptIcon name={item.icon} className="h-10 w-10 text-accent-text" />
+            <ConceptIcon name={item.icon} className="h-7 w-7 text-accent-text sm:h-10 sm:w-10" />
           </span>
           <div className="min-w-0">
-            <h1 className="text-2xl font-bold text-accent-text">{content.name}</h1>
+            <h1 className="text-xl font-bold text-accent-text sm:text-2xl">{content.name}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <TierBadge tier={item.tier} />
               <span className="text-xs uppercase tracking-widest text-slate-500 light:text-slate-500">

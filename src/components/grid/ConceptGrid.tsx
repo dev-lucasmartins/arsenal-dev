@@ -29,7 +29,7 @@ export function ConceptGrid({
     .filter((tierGroup) => tierGroup.categories.length > 0)
 
   return (
-    <main className="flex-1 overflow-y-auto px-6 py-6">
+    <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
       <h2 className="mb-4 border-b border-accent/30 pb-2 text-xl font-semibold text-accent-text">
         {languageLabel}
       </h2>

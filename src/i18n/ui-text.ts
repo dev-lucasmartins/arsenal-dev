@@ -22,6 +22,8 @@ interface UiText {
   backToGrid: string;
   itemNotFound: string;
   aboutNavLabel: string;
+  openMenu: string;
+  closeMenu: string;
   tierLabels: Record<Tier, string>;
 }
 
@@ -48,6 +50,8 @@ export const uiText: Record<Locale, UiText> = {
     backToGrid: "Voltar",
     itemNotFound: "Conceito não encontrado.",
     aboutNavLabel: "Sobre o Projeto",
+    openMenu: "Abrir menu",
+    closeMenu: "Fechar menu",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",
@@ -77,6 +81,8 @@ export const uiText: Record<Locale, UiText> = {
     backToGrid: "Back",
     itemNotFound: "Concept not found.",
     aboutNavLabel: "About the Project",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",
@@ -106,6 +112,8 @@ export const uiText: Record<Locale, UiText> = {
     backToGrid: "Volver",
     itemNotFound: "Concepto no encontrado.",
     aboutNavLabel: "Acerca del Proyecto",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",
