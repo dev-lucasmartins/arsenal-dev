@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { ConceptGrid } from "./components/grid/ConceptGrid";
 import { SearchBar } from "./components/SearchBar";
 import { Sidebar } from "./components/sidebar/Sidebar";
-import { ThemeToggle } from "./components/ThemeToggle";
 import { allItems } from "./data";
 import { useCategoryNavigation } from "./hooks/useCategoryNavigation";
 import { useLocale } from "./hooks/useLocale";
