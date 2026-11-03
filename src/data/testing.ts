@@ -1,7 +1,7 @@
 import type { StudyItem } from '../types/study-item'
 
 export const testingItems: StudyItem[] = [
-  // Starter — Fundamentos
+  // Starter - Fundamentos
   {
     id: 'test-what-is-unit-test',
     language: 'testing',
@@ -87,7 +87,7 @@ npm run test:watch   # modo watch, reroda ao salvar`,
     tags: ['vitest run', 'watch mode', 'cli'],
   },
 
-  // Basic — Organização
+  // Basic - Organização
   {
     id: 'test-setup-teardown',
     language: 'testing',
@@ -164,7 +164,7 @@ test: {
     tags: ['coverage', 'v8', 'istanbul'],
   },
 
-  // Epic — Testando Componentes
+  // Epic - Testando Componentes
   {
     id: 'test-testing-library',
     language: 'testing',
@@ -234,7 +234,7 @@ vi.mock('./modulo', () => ({ funcao: vi.fn() }))`,
     tags: ['mock', 'spy', 'vi.fn', 'vi.mock'],
   },
 
-  // Legendary — Avançado
+  // Legendary - Avançado
   {
     id: 'test-async',
     language: 'testing',

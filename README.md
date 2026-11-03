@@ -2,10 +2,10 @@
 
 Biblioteca visual de estudos para TypeScript, JavaScript, React, Tailwind CSS e Testes Unitários,
 inspirada na página
-["List of Items"](https://wiki.leagueoflegends.com/en-us/List_of_items) da wiki do League of
-Legends: uma grade de ícones agrupados por categoria e tier, onde cada ícone é um conceito de
-programação em vez de um item do jogo. Passar o mouse mostra um preview rápido; clicar abre a
-página de detalhe do conceito (`/item/:id`).
+["List of Items"](https://wiki.leagueoflegends.com/en-us/List_of_items): uma grade de ícones
+agrupados por categoria e tier, onde cada ícone é um conceito de programação em vez de um item
+de jogo. Passar o mouse mostra um preview rápido; clicar abre a página de detalhe do conceito
+(`/item/:id`).
 
 ## Rodando o projeto
 
@@ -49,7 +49,7 @@ qualquer componente que use `useLocale()` (ele já embrulha em `LocaleProvider` 
 
 O teste mais importante do projeto é `src/data/index.test.ts`: ele confere que **todo
 item** em `src/data/*.ts` tem uma entrada correspondente nos **três** arquivos de
-`src/i18n/content/` — isso é uma relação que o TypeScript não valida sozinho (explicado
+`src/i18n/content/` - isso é uma relação que o TypeScript não valida sozinho (explicado
 na seção [Como adicionar um novo conceito](#como-adicionar-um-novo-conceito)), então
 rode `npm run test` depois de adicionar ou editar conceitos para pegar qualquer `id`
 fora de sincronia antes que vire um bug em runtime.
@@ -65,7 +65,7 @@ O conteúdo é dividido em duas partes, separadas dos componentes de UI:
   arquivo por idioma, cada um um mapa `id do item -> { name, stats, passive, whenToUse,
   avoidWhen }`. Todo item precisa de uma entrada em **todos os três** arquivos (o `id` é
   a chave que liga as duas partes; nada é verificado pelo TypeScript se a chave não bater
-  — o teste `src/data/index.test.ts` cobre exatamente isso, rode `npm run test` depois de
+  - o teste `src/data/index.test.ts` cobre exatamente isso, rode `npm run test` depois de
   editar conceitos).
 
 Passo a passo para adicionar um conceito novo:
@@ -131,8 +131,7 @@ são todos derivados automaticamente dos dados.
 
 ## Tiers
 
-Os tiers imitam os tiers de itens do LoL e têm cores próprias (ver
-`src/lib/tier-styles.ts`):
+Cada tier tem uma cor própria (ver `src/lib/tier-styles.ts`):
 
 | Tier | Uso sugerido |
 |---|---|

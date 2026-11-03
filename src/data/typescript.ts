@@ -1,7 +1,7 @@
 import type { StudyItem } from '../types/study-item'
 
 export const typescriptItems: StudyItem[] = [
-  // Starter — Tipagem básica
+  // Starter - Tipagem básica
   {
     id: 'ts-basic-types',
     language: 'typescript',
@@ -100,7 +100,7 @@ mover("sul")
       'tipos',
     ],
   },
-  // Basic — Tipagem de objetos
+  // Basic - Tipagem de objetos
   {
     id: 'ts-interfaces-vs-types',
     language: 'typescript',
@@ -204,7 +204,7 @@ function totalDoCarrinho(precos: Precos, itens: string[]): number {
       'dicionário',
     ],
   },
-  // Basic — Funções
+  // Basic - Funções
   {
     id: 'ts-typed-functions',
     language: 'typescript',
@@ -294,7 +294,7 @@ const img = criarElemento("img")  // tipo: HTMLImageElement`,
       'funções',
     ],
   },
-  // Epic — Reuso de tipos
+  // Epic - Reuso de tipos
   {
     id: 'ts-generics',
     language: 'typescript',
@@ -393,7 +393,7 @@ type UsuarioImutavel = SomenteLeitura<Usuario>
       'utility types',
     ],
   },
-  // Legendary — Controle de fluxo de tipos
+  // Legendary - Controle de fluxo de tipos
   {
     id: 'ts-narrowing',
     language: 'typescript',
@@ -477,7 +477,7 @@ function ehGato(animal: Gato | Cachorro): animal is Gato {
       'is',
     ],
   },
-  // Legendary — Tipos avançados
+  // Legendary - Tipos avançados
   {
     id: 'ts-conditional-types',
     language: 'typescript',

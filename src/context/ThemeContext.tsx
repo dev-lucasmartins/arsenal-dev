@@ -8,7 +8,7 @@ function readStoredTheme(): Theme {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'dark' || stored === 'light') return stored
   } catch {
-    // localStorage indisponível — usa o padrão
+    // localStorage indisponível - usa o padrão
   }
   return 'dark'
 }

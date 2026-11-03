@@ -9,7 +9,7 @@ function readStoredLocale(): Locale {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'pt-BR' || stored === 'en' || stored === 'es') return stored
   } catch {
-    // localStorage indisponível (modo privado, etc.) — usa o padrão
+    // localStorage indisponível (modo privado, etc.) - usa o padrão
   }
   return DEFAULT_LOCALE
 }

@@ -1,7 +1,7 @@
 import type { StudyItem } from '../types/study-item'
 
 export const javascriptItems: StudyItem[] = [
-  // Starter — Fundamentos
+  // Starter - Fundamentos
   {
     id: 'js-variables-primitives',
     language: 'javascript',
@@ -67,7 +67,7 @@ console.log(5 == "5")  // true`,
   return valor !== null && valor !== undefined && valor !== ""
 }
 
-ehValido(0) // true — 0 é um valor válido, diferente de "" ou null`,
+ehValido(0) // true - 0 é um valor válido, diferente de "" ou null`,
     tags: [
       'operadores',
       'coerção',
@@ -106,7 +106,7 @@ classificar(8) // "aprovado"`,
       'loops',
     ],
   },
-  // Basic — Sintaxe moderna
+  // Basic - Sintaxe moderna
   {
     id: 'js-destructuring',
     language: 'javascript',
@@ -202,7 +202,7 @@ saudacao({ nome: "Ana" }) // "Olá, Ana!"`,
       'nullish coalescing',
     ],
   },
-  // Epic — Funções avançadas
+  // Epic - Funções avançadas
   {
     id: 'js-closures',
     language: 'javascript',
@@ -283,7 +283,7 @@ botao.addEventListener("click", () => console.log("Clicado!"))`,
       'eventos',
     ],
   },
-  // Epic — Assincronismo
+  // Epic - Assincronismo
   {
     id: 'js-promises',
     language: 'javascript',
@@ -359,7 +359,7 @@ const usuarios = await response.json()`,
       'api',
     ],
   },
-  // Legendary — Assincronismo
+  // Legendary - Assincronismo
   {
     id: 'js-async-await',
     language: 'javascript',
