@@ -24,7 +24,7 @@ export default function App() {
       <header className="z-10 flex items-center justify-between gap-4 border-b border-slate-700/60 light:border-slate-200 bg-surface-sunken px-6 py-3 shadow-sm">
         <div className="flex items-center gap-4">
           <img
-            src="/images/arsenaldev-icon.png"
+            src={`${import.meta.env.BASE_URL}images/arsenaldev-icon.png`}
             alt="Arsenal Dev"
             className="h-20 w-20 shrink-0 object-contain"
           />
