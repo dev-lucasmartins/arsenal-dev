@@ -1,6 +1,5 @@
 import { Search } from "lucide-react";
 import { useLocale } from "../hooks/useLocale";
-import { cn } from "../lib/utils";
 
 export function SearchBar({
   value,
