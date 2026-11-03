@@ -28,7 +28,7 @@ interface UiText {
 export const uiText: Record<Locale, UiText> = {
   "pt-BR": {
     appSubtitle:
-      "Biblioteca visual de estudos — TypeScript, JavaScript, React & Tailwind",
+      "Biblioteca visual de estudos - TypeScript, JavaScript, React & Tailwind",
     searchPlaceholder: "Buscar conceito ou tag...",
     noResults: "Nenhum conceito encontrado para essa busca.",
     sectionAttributes: "Atributos",
@@ -57,7 +57,7 @@ export const uiText: Record<Locale, UiText> = {
   },
   en: {
     appSubtitle:
-      "A visual study library — TypeScript, JavaScript, React & Tailwind",
+      "A visual study library - TypeScript, JavaScript, React & Tailwind",
     searchPlaceholder: "Search a concept or tag...",
     noResults: "No concepts found for this search.",
     sectionAttributes: "Attributes",
@@ -86,7 +86,7 @@ export const uiText: Record<Locale, UiText> = {
   },
   es: {
     appSubtitle:
-      "Una biblioteca visual de estudio — TypeScript, JavaScript, React y Tailwind",
+      "Una biblioteca visual de estudio - TypeScript, JavaScript, React y Tailwind",
     searchPlaceholder: "Buscar un concepto o etiqueta...",
     noResults: "No se encontraron conceptos para esta búsqueda.",
     sectionAttributes: "Atributos",

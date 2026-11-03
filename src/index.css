@@ -5,7 +5,7 @@
 @custom-variant light (&:where(.light, .light *));
 
 @theme {
-  /* Paleta de superfícies do tema escuro (padrão) — use via bg-surface, bg-surface-sunken etc. */
+  /* Paleta de superfícies do tema escuro (padrão) - use via bg-surface, bg-surface-sunken etc. */
   --color-surface: #0a0e17;
   --color-surface-sunken: #0b0f1a;
   --color-surface-raised: #11182b;
@@ -33,13 +33,20 @@ body {
   margin: 0;
   background: var(--color-surface);
   color: var(--color-ink);
-  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family:
+    "Roboto",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
 }
 
 /* Flash de destaque na seção para onde a sidebar acabou de navegar */
 @keyframes category-flash {
   0% {
-    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.9), 0 0 28px rgba(251, 191, 36, 0.45);
+    box-shadow:
+      0 0 0 2px rgba(251, 191, 36, 0.9),
+      0 0 28px rgba(251, 191, 36, 0.45);
     background-color: rgba(251, 191, 36, 0.1);
   }
   100% {

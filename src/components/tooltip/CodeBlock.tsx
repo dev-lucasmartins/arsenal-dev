@@ -1,22 +1,22 @@
-import { Check, Copy } from 'lucide-react'
-import { Highlight, themes } from 'prism-react-renderer'
-import { useState } from 'react'
-import { useLocale } from '../../hooks/useLocale'
-import { useTheme } from '../../hooks/useTheme'
+import { Check, Copy } from "lucide-react";
+import { Highlight, themes } from "prism-react-renderer";
+import { useState } from "react";
+import { useLocale } from "../../hooks/useLocale";
+import { useTheme } from "../../hooks/useTheme";
 
 export function CodeBlock({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false)
-  const { theme } = useTheme()
-  const { t } = useLocale()
-  const prismTheme = theme === 'light' ? themes.github : themes.nightOwl
+  const [copied, setCopied] = useState(false);
+  const { theme } = useTheme();
+  const { t } = useLocale();
+  const prismTheme = theme === "light" ? themes.github : themes.nightOwl;
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
     } catch {
-      // clipboard indisponível — ignora silenciosamente
+      // clipboard indisponível - ignora silenciosamente
     }
   }
 
@@ -35,7 +35,7 @@ export function CodeBlock({ code }: { code: string }) {
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
             className={`${className} overflow-x-auto rounded-md p-3 text-[12.5px] leading-relaxed`}
-            style={{ ...style, backgroundColor: 'transparent' }}
+            style={{ ...style, backgroundColor: "transparent" }}
           >
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line })}>
@@ -48,5 +48,5 @@ export function CodeBlock({ code }: { code: string }) {
         )}
       </Highlight>
     </div>
-  )
+  );
 }

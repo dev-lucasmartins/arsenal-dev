@@ -35,9 +35,9 @@ npm run build
 O conteúdo é dividido em duas partes, separadas dos componentes de UI:
 
 - **Estrutura** (não traduzida): `src/data/typescript.ts`, `javascript.ts`, `react.ts`,
-  `tailwind.ts` — um item por conceito, com `id`, `language`, `category`, `tier`, `icon`,
+  `tailwind.ts` - um item por conceito, com `id`, `language`, `category`, `tier`, `icon`,
   os snippets de código (`declaration`/`example`) e `buildsInto`/`tags`.
-- **Conteúdo textual** (traduzido): `src/i18n/content/pt-BR.ts`, `en.ts`, `es.ts` — um
+- **Conteúdo textual** (traduzido): `src/i18n/content/pt-BR.ts`, `en.ts`, `es.ts` - um
   arquivo por idioma, cada um um mapa `id do item -> { name, stats, passive, whenToUse,
   avoidWhen }`. Todo item precisa de uma entrada em **todos os três** arquivos (o `id` é
   a chave que liga as duas partes; nada é verificado pelo TypeScript se a chave não bater,
@@ -52,7 +52,7 @@ Passo a passo para adicionar um conceito novo:
 {
   id: 'ts-meu-conceito',          // único, prefixado com a linguagem (ts-, js-, react-, tw-)
   language: 'typescript',          // 'typescript' | 'javascript' | 'react' | 'tailwind'
-  category: 'Minha Categoria',     // chave em pt-BR — traduza em src/i18n/category-labels.ts
+  category: 'Minha Categoria',     // chave em pt-BR - traduza em src/i18n/category-labels.ts
   tier: 'basic',                   // 'starter' | 'basic' | 'epic' | 'legendary'
   icon: 'Type',                    // nome de um ícone do lucide-react (ver abaixo)
   declaration: `const exemplo = true`,   // snippet de "como declarar"
@@ -85,16 +85,16 @@ Passo a passo para adicionar um conceito novo:
    `src/components/grid/ConceptIcon.tsx`: importe o ícone de `lucide-react` e adicione-o
    ao objeto `iconMap`.
 
-Não é necessário tocar em nenhum componente além disso — a sidebar, a grade e os tooltips
+Não é necessário tocar em nenhum componente além disso - a sidebar, a grade e os tooltips
 são todos derivados automaticamente dos dados.
 
 ## i18n e tema
 
 - **Idioma**: `src/context/LocaleContext.tsx` guarda o idioma ativo (persistido em
   `localStorage`). Três fontes de texto, cada uma com seu papel:
-  - `src/i18n/ui-text.ts` — textos fixos da interface (botões, placeholders, cabeçalhos).
-  - `src/i18n/category-labels.ts` — tradução dos rótulos de categoria.
-  - `src/i18n/content/{pt-BR,en,es}.ts` — conteúdo dos 75 conceitos, acessado via
+  - `src/i18n/ui-text.ts` - textos fixos da interface (botões, placeholders, cabeçalhos).
+  - `src/i18n/category-labels.ts` - tradução dos rótulos de categoria.
+  - `src/i18n/content/{pt-BR,en,es}.ts` - conteúdo dos 75 conceitos, acessado via
     `getItemContent(itemId, locale)` (`src/i18n/content/index.ts`).
 
   O seletor fica no header (`src/components/LocaleSwitcher.tsx`).
