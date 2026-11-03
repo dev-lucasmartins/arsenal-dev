@@ -1,4 +1,5 @@
-import { ChevronDown, ChevronRight, FileText } from 'lucide-react'
+import { ChevronDown, ChevronRight, FileText, Info } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
 import { getCategoriesByLanguage } from '../../data'
 import { useLocale } from '../../hooks/useLocale'
 import { translateCategory } from '../../i18n/category-labels'
@@ -17,12 +18,28 @@ export function Sidebar({
   onSelectLanguage: (language: Language) => void
   onSelectCategory: (language: Language, category: string) => void
 }) {
-  const { locale } = useLocale()
+  const { locale, t } = useLocale()
 
   return (
     <nav className="flex w-64 shrink-0 flex-col border-r border-slate-700/60 light:border-slate-200 bg-surface px-3 py-4">
       <div className="flex h-full min-h-0 flex-col rounded-2xl bg-surface-raised shadow-sm">
         <div className="min-h-0 flex-1 space-y-1 overflow-y-auto p-3">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              cn(
+                'mb-2 flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors',
+                isActive
+                  ? 'bg-accent/15 text-accent-text'
+                  : 'text-slate-200 light:text-slate-700 hover:text-accent-text',
+              )
+            }
+          >
+            <Info size={15} />
+            {t.aboutNavLabel}
+          </NavLink>
+          <div className="mb-2 border-b border-slate-700/60 light:border-slate-200" />
+
           {LANGUAGES.map((lang) => {
             const isLanguageActive = lang.id === activeLanguage
             const categories = getCategoriesByLanguage(lang.id)
@@ -36,8 +53,8 @@ export function Sidebar({
                   className={cn(
                     'flex w-full items-center justify-between rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition-colors',
                     isLanguageActive
-                      ? 'text-amber-200 light:text-amber-700'
-                      : 'text-slate-200 light:text-slate-700 hover:text-amber-200 light:hover:text-amber-700',
+                      ? 'text-accent-text'
+                      : 'text-slate-200 light:text-slate-700 hover:text-accent-text',
                   )}
                 >
                   {lang.label}
@@ -61,17 +78,15 @@ export function Sidebar({
                             className={cn(
                               'flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-medium transition-all',
                               isCategoryActive
-                                ? 'bg-surface-card border border-slate-600/50 light:border-slate-200 text-amber-200 light:text-amber-700 shadow-sm'
-                                : 'border border-transparent text-slate-300 light:text-slate-600 hover:bg-surface-sunken hover:text-amber-200 light:hover:text-amber-700',
+                                ? 'bg-surface-card border border-slate-600/50 light:border-slate-200 text-accent-text shadow-sm'
+                                : 'border border-transparent text-slate-300 light:text-slate-600 hover:bg-surface-sunken hover:text-accent-text',
                             )}
                           >
                             <FileText
                               size={14}
                               className={cn(
                                 'shrink-0',
-                                isCategoryActive
-                                  ? 'text-amber-300 light:text-amber-600'
-                                  : 'text-slate-500 light:text-slate-400',
+                                isCategoryActive ? 'text-accent-text-strong' : 'text-slate-500 light:text-slate-500',
                               )}
                             />
                             <span className="truncate">{translateCategory(category, locale)}</span>

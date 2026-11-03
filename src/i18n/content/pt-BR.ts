@@ -1055,4 +1055,217 @@ export const ptBRContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "Não abuse de `@apply` em um projeto React - isso recria o problema que o Tailwind resolve (CSS separado do markup) sem o benefício de um componente reutilizável de verdade.",
   },
+
+  // Testes Unitários
+  "test-what-is-unit-test": {
+    name: "O que é um Teste Unitário",
+    stats: [
+      "Verifica uma unidade pequena de código isoladamente",
+      "Roda rápido - não depende de rede, banco ou UI real",
+      "Dá segurança pra refatorar sem medo de quebrar algo",
+    ],
+    passive:
+      "Um teste unitário verifica se uma função, hook ou componente se comporta como esperado, de forma isolada do resto do sistema. É a base da pirâmide de testes: muitos testes pequenos e rápidos, em vez de poucos testes grandes e lentos.",
+    whenToUse:
+      "Para qualquer lógica que tenha um resultado previsível - funções puras, hooks, componentes, utilitários.",
+    avoidWhen:
+      "Não tente testar tudo de uma vez num teste só - se o teste precisa de muito setup, provavelmente ele está testando mais de uma coisa.",
+  },
+  "test-structure": {
+    name: "Estrutura de um Teste (describe/it/expect)",
+    stats: [
+      "`describe` agrupa testes relacionados",
+      "`it`/`test` descreve um comportamento específico",
+      "`expect` faz a verificação (assertion)",
+    ],
+    passive:
+      'Um teste segue o padrão "arrange, act, assert": prepara os dados, executa a ação, e verifica o resultado. `describe` organiza testes relacionados num grupo; cada `it` dentro dele testa um comportamento específico com um nome descritivo.',
+    whenToUse: "Sempre - é a estrutura básica de qualquer arquivo de teste.",
+    avoidWhen:
+      'Evite nomes de teste vagos como "funciona" - escreva o que especificamente está sendo verificado.',
+  },
+  "test-assertions": {
+    name: "Assertions Básicas",
+    stats: [
+      "`toBe` compara por igualdade estrita (===)",
+      "`toEqual` compara objetos/arrays por valor",
+      "`toContain`, `toThrow`, `toBeNull` cobrem casos comuns",
+    ],
+    passive:
+      "Assertions são as verificações reais dentro de um teste - elas decidem se o teste passa ou falha. `expect(valor)` retorna um objeto com dezenas de matchers (`toBe`, `toEqual`, `toContain`...) para comparar o resultado com o esperado.",
+    whenToUse:
+      "`toBe` para primitivos (números, strings, booleans); `toEqual` para objetos e arrays, já que `toBe` compararia a referência, não o conteúdo.",
+    avoidWhen:
+      "Não use `toBe` para comparar objetos/arrays - `{} !== {}` em JavaScript, o teste falharia mesmo com o conteúdo idêntico.",
+  },
+  "test-running": {
+    name: "Rodando os Testes",
+    stats: [
+      "`vitest run` roda uma vez e sai (bom para CI)",
+      "`vitest` (sem run) fica em modo watch, reroda ao salvar",
+      "Scripts no `package.json` padronizam os comandos",
+    ],
+    passive:
+      "O test runner descobre os arquivos de teste (geralmente `*.test.ts`), executa cada um, e reporta quais passaram ou falharam. O modo watch é o mais usado durante o desenvolvimento, já que reroda os testes afetados automaticamente a cada salvamento.",
+    whenToUse:
+      "Modo watch (`npm run test:watch`) enquanto codifica; `npm run test` (roda uma vez) em scripts de CI/build.",
+  },
+  "test-setup-teardown": {
+    name: "Setup & Teardown",
+    stats: [
+      "`beforeEach`/`afterEach` rodam antes/depois de cada teste",
+      "`beforeAll`/`afterAll` rodam uma vez para o arquivo todo",
+      "Evita duplicar a mesma preparação em cada teste",
+    ],
+    passive:
+      "Setup e teardown preparam e limpam o estado ao redor de cada teste, garantindo que um teste não interfira no outro. `beforeEach` roda antes de cada `it`; `beforeAll` roda só uma vez, antes de todos os testes do arquivo.",
+    whenToUse:
+      "Quando vários testes do mesmo arquivo precisam da mesma preparação (resetar um mock, recriar um objeto) - evita repetir código.",
+    avoidWhen:
+      "Não coloque lógica de teste dentro do `beforeEach` - ele deve só preparar o terreno, a verificação fica no `it`.",
+  },
+  "test-fixtures": {
+    name: "Fixtures & Dados de Teste",
+    stats: [
+      "Dados de exemplo reutilizáveis entre testes",
+      "Funções fábrica permitem customizar só o que importa",
+      "Deixa o teste focado no comportamento, não nos dados",
+    ],
+    passive:
+      'Uma fixture é um dado de teste pré-montado e reutilizável - em vez de criar um objeto "usuário" do zero em cada teste, uma função fábrica gera um padrão razoável que cada teste pode sobrescrever só no que precisa.',
+    whenToUse:
+      "Quando vários testes precisam de dados parecidos (um usuário, um pedido, uma lista de itens) - centraliza a forma do dado em um só lugar.",
+    avoidWhen:
+      "Evite fixtures genéricas demais tentando servir todo caso - às vezes um objeto literal direto no teste é mais claro que uma fixture complicada.",
+  },
+  "test-pure-functions": {
+    name: "Testando Funções Puras",
+    stats: [
+      "Mesma entrada sempre produz a mesma saída",
+      "Mais fáceis de testar - sem mocks, sem efeitos colaterais",
+      "Bom ponto de partida para quem está começando com testes",
+    ],
+    passive:
+      "Funções puras (sem efeitos colaterais, sem dependência de estado externo) são o caso mais simples de testar: você só precisa chamar a função com entradas conhecidas e comparar a saída com o valor esperado.",
+    whenToUse:
+      "Para utilitários, helpers, formatadores, validadores - qualquer função que só transforma entrada em saída.",
+  },
+  "test-coverage": {
+    name: "Cobertura de Testes",
+    stats: [
+      "Mede qual % do código é executado pelos testes",
+      "Vitest usa o provider `v8` nativamente, sem instalar nada extra",
+      "Gera relatório em texto, HTML ou outros formatos",
+    ],
+    passive:
+      "Cobertura de testes mede quantas linhas, branches e funções do código são de fato executadas quando os testes rodam. É um indicador útil, mas não garante que o comportamento está correto - só que o código foi executado.",
+    whenToUse:
+      "Para identificar partes do código sem nenhum teste, especialmente antes de uma refatoração grande.",
+    avoidWhen:
+      'Não persiga 100% de cobertura como meta em si - 100% de cobertura com assertions fracas não garante nada; prefira poucos testes bons a muitos testes que só "tocam" o código.',
+  },
+  "test-testing-library": {
+    name: "Testing Library (render, screen, queries)",
+    stats: [
+      "`render` monta o componente num DOM virtual (jsdom)",
+      "`screen` dá acesso a tudo que foi renderizado",
+      "Queries (`getByRole`, `getByText`...) buscam elementos como um usuário faria",
+    ],
+    passive:
+      'A Testing Library renderiza componentes React num ambiente de teste e permite consultá-los do jeito que um usuário "veria" a tela - por texto visível, papel semântico (role), ou label - em vez de depender de detalhes de implementação como nomes de classe.',
+    whenToUse:
+      "Para testar que um componente renderiza o que deveria, com o texto e a estrutura semântica certos.",
+    avoidWhen:
+      "Evite testar detalhes de implementação (nome de uma variável de estado interna, estrutura exata do DOM) - teste o que o usuário vê e faz.",
+  },
+  "test-user-event": {
+    name: "Simulando Interação do Usuário",
+    stats: [
+      "`userEvent.setup()` cria uma sessão de interação",
+      "Simula eventos reais (digitação, clique, foco) de forma realista",
+      "Funções assíncronas - sempre use `await`",
+    ],
+    passive:
+      "`user-event` simula interações do usuário de forma mais fiel que disparar eventos DOM diretamente - digitar um caractere de cada vez, por exemplo, em vez de setar o valor inteiro de uma vez.",
+    whenToUse:
+      "Para testar comportamento que depende de interação: digitar num campo, clicar num botão, navegar com teclado.",
+  },
+  "test-hooks": {
+    name: "Testando Hooks",
+    stats: [
+      "`renderHook` executa um hook fora de um componente",
+      "`result.current` dá acesso ao valor retornado pelo hook",
+      "`act` garante que atualizações de estado sejam processadas",
+    ],
+    passive:
+      "`renderHook` permite testar um custom hook isoladamente, sem precisar montar um componente só para isso. Qualquer atualização de estado disparada no teste (como chamar uma função retornada pelo hook) precisa ser envolvida em `act` para o React processar corretamente.",
+    whenToUse:
+      "Para testar a lógica de um custom hook (como `useSearch` ou `useCategoryNavigation`) sem acoplar o teste a um componente específico.",
+  },
+  "test-mocks-spies": {
+    name: "Mocks & Spies",
+    stats: [
+      "`vi.fn()` cria uma função falsa que grava as chamadas",
+      "`vi.mock()` substitui um módulo inteiro por uma versão falsa",
+      "Permite testar sem depender de rede, banco ou APIs externas",
+    ],
+    passive:
+      "Um mock substitui uma dependência real por uma versão controlada pelo teste. `vi.fn()` cria uma função que grava quantas vezes foi chamada e com quais argumentos, útil para verificar que um callback foi de fato acionado.",
+    whenToUse:
+      "Quando o código testado depende de algo externo (API, banco, timer) que você não quer (ou não pode) executar de verdade durante o teste.",
+    avoidWhen:
+      "Não abuse de mocks a ponto de o teste só verificar que você configurou o mock certo - isso testa o mock, não o seu código.",
+  },
+  "test-async": {
+    name: "Testes Assíncronos",
+    stats: [
+      "`await` dentro do teste espera uma Promise resolver",
+      "`waitFor` espera até uma condição ser verdadeira",
+      'Evita testes "flaky" que passam ou falham aleatoriamente',
+    ],
+    passive:
+      'Testes que envolvem código assíncrono (fetch, timers, efeitos) precisam esperar o resultado antes de fazer a assertion. `waitFor` repete a verificação em intervalos curtos até ela passar ou até um timeout, em vez de usar um `setTimeout` fixo e torcer pra ser tempo suficiente.',
+    whenToUse:
+      "Sempre que o componente ou função testada depende de uma operação assíncrona (requisição, efeito, debounce).",
+    avoidWhen:
+      'Evite `setTimeout` fixo dentro de um teste pra "esperar" algo acontecer - isso é lento e ainda pode falhar se a operação demorar mais que o esperado.',
+  },
+  "test-doubles": {
+    name: "Test Doubles (mock vs stub vs spy)",
+    stats: [
+      "Stub: retorna um valor fixo, sem lógica",
+      "Spy: grava como a função real foi chamada, sem mudar seu comportamento",
+      "Mock: substitui o comportamento real por um falso configurável",
+    ],
+    passive:
+      '"Test double" é o termo geral para qualquer substituto de uma dependência real num teste. Os termos variam por nuance: um stub só retorna um valor fixo; um spy observa chamadas à função real sem alterá-la; um mock substitui o comportamento inteiro por uma versão controlada.',
+    whenToUse:
+      "Spy quando você quer manter o comportamento real mas verificar como ele foi chamado; mock quando quer substituir o comportamento por completo; stub para respostas simples e previsíveis.",
+  },
+  "test-snapshot": {
+    name: "Snapshot Testing",
+    stats: [
+      "`toMatchSnapshot` salva a saída atual como referência",
+      "Testes seguintes comparam contra esse snapshot salvo",
+      "Boa para pegar mudanças acidentais, não para validar comportamento",
+    ],
+    passive:
+      "Um snapshot test salva a saída de um componente (ou valor) num arquivo na primeira execução, e nas próximas compara a saída atual com a salva, avisando se algo mudou. É mais sobre detectar mudanças do que validar se o resultado está correto.",
+    whenToUse:
+      "Para pegar mudanças não intencionais na estrutura de um componente complexo que mudaria raramente.",
+    avoidWhen:
+      'Evite depender só de snapshots - é fácil "aceitar" uma mudança quebrada sem perceber, só porque o snapshot atualizado parece razoável de relance.',
+  },
+  "test-ci": {
+    name: "Integração Contínua (CI)",
+    stats: [
+      "Roda os testes automaticamente a cada push/PR",
+      "Pega regressões antes de chegarem à branch principal",
+      "Comum usar GitHub Actions, GitLab CI, etc.",
+    ],
+    passive:
+      "Integração contínua (CI) roda a suíte de testes automaticamente sempre que há uma mudança no repositório, geralmente antes de permitir o merge de um pull request. Isso garante que ninguém quebre os testes sem perceber.",
+    whenToUse:
+      "Em qualquer projeto com mais de uma pessoa (ou mais de um dia) trabalhando nele - CI pega erros antes que virem um problema em produção.",
+  },
 };

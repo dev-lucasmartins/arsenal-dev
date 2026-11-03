@@ -18,7 +18,7 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
   const isOpen = isHovering
   const style = tierStyles[item.tier]
   const content = getItemContent(item.id, locale)
-  const activeText = isOpen ? 'text-amber-200 light:text-amber-700' : undefined
+  const activeText = isOpen ? 'text-accent-text' : undefined
 
   return (
     <>
@@ -49,7 +49,7 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
         <span
           className={cn(
             'line-clamp-2 text-center text-[10px] leading-tight',
-            activeText ?? 'text-slate-400 light:text-slate-500',
+            activeText ?? 'text-slate-400 light:text-slate-600',
           )}
         >
           {content.name}

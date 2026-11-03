@@ -1,13 +1,13 @@
-import type { StudyItem } from '../types/study-item'
+import type { StudyItem } from "../types/study-item";
 
 export const reactItems: StudyItem[] = [
   // Starter — Fundamentos
   {
-    id: 'react-components-jsx',
-    language: 'react',
-    category: 'Fundamentos',
-    tier: 'starter',
-    icon: 'Component',
+    id: "react-components-jsx",
+    language: "react",
+    category: "Fundamentos",
+    tier: "starter",
+    icon: "Component",
     declaration: `function Saudacao() {
   return <h1>Olá, mundo!</h1>
 }`,
@@ -19,21 +19,15 @@ export const reactItems: StudyItem[] = [
     </div>
   )
 }`,
-    buildsInto: [
-      'react-props',
-    ],
-    tags: [
-      'jsx',
-      'componente',
-      'fundamentos',
-    ],
+    buildsInto: ["react-props"],
+    tags: ["jsx", "componente", "fundamentos"],
   },
   {
-    id: 'react-props',
-    language: 'react',
-    category: 'Fundamentos',
-    tier: 'starter',
-    icon: 'ArrowRightLeft',
+    id: "react-props",
+    language: "react",
+    category: "Fundamentos",
+    tier: "starter",
+    icon: "ArrowRightLeft",
     declaration: `interface BotaoProps {
   texto: string
   onClick: () => void
@@ -45,20 +39,15 @@ function Botao({ texto, onClick }: BotaoProps) {
     example: `function App() {
   return <Botao texto="Salvar" onClick={() => console.log("Salvo!")} />
 }`,
-    buildsInto: [
-      'react-usestate',
-    ],
-    tags: [
-      'props',
-      'componente',
-    ],
+    buildsInto: ["react-usestate"],
+    tags: ["props", "componente"],
   },
   {
-    id: 'react-conditional-rendering',
-    language: 'react',
-    category: 'Fundamentos',
-    tier: 'starter',
-    icon: 'GitFork',
+    id: "react-conditional-rendering",
+    language: "react",
+    category: "Fundamentos",
+    tier: "starter",
+    icon: "GitFork",
     declaration: `{estaLogado && <PainelUsuario />}
 {estaCarregando ? <Spinner /> : <Conteudo />}`,
     example: `function Notificacoes({ itens }: { itens: string[] }) {
@@ -70,21 +59,15 @@ function Botao({ texto, onClick }: BotaoProps) {
     </ul>
   )
 }`,
-    buildsInto: [
-      'react-usestate',
-    ],
-    tags: [
-      'jsx',
-      'condicional',
-      'renderização',
-    ],
+    buildsInto: ["react-usestate"],
+    tags: ["jsx", "condicional", "renderização"],
   },
   {
-    id: 'react-event-handling',
-    language: 'react',
-    category: 'Fundamentos',
-    tier: 'starter',
-    icon: 'MousePointerClick',
+    id: "react-event-handling",
+    language: "react",
+    category: "Fundamentos",
+    tier: "starter",
+    icon: "MousePointerClick",
     declaration: `<button onClick={() => console.log("clicado")}>Clique</button>
 <input onChange={(e) => setValor(e.target.value)} />`,
     example: `function Formulario() {
@@ -99,22 +82,16 @@ function Botao({ texto, onClick }: BotaoProps) {
     </form>
   )
 }`,
-    buildsInto: [
-      'react-controlled-forms',
-    ],
-    tags: [
-      'eventos',
-      'onclick',
-      'onchange',
-    ],
+    buildsInto: ["react-controlled-forms"],
+    tags: ["eventos", "onclick", "onchange"],
   },
   // Basic — Hooks básicos
   {
-    id: 'react-usestate',
-    language: 'react',
-    category: 'Hooks básicos',
-    tier: 'basic',
-    icon: 'ToggleLeft',
+    id: "react-usestate",
+    language: "react",
+    category: "Hooks básicos",
+    tier: "basic",
+    icon: "ToggleLeft",
     declaration: `const [contador, setContador] = useState(0)`,
     example: `function Contador() {
   const [contador, setContador] = useState(0)
@@ -125,22 +102,15 @@ function Botao({ texto, onClick }: BotaoProps) {
     </button>
   )
 }`,
-    buildsInto: [
-      'react-useeffect',
-      'react-controlled-forms',
-    ],
-    tags: [
-      'usestate',
-      'hooks',
-      'estado',
-    ],
+    buildsInto: ["react-useeffect", "react-controlled-forms"],
+    tags: ["usestate", "hooks", "estado"],
   },
   {
-    id: 'react-list-keys',
-    language: 'react',
-    category: 'Hooks básicos',
-    tier: 'basic',
-    icon: 'List',
+    id: "react-list-keys",
+    language: "react",
+    category: "Hooks básicos",
+    tier: "basic",
+    icon: "List",
     declaration: `{itens.map(item => (
   <li key={item.id}>{item.nome}</li>
 ))}`,
@@ -153,21 +123,15 @@ function Botao({ texto, onClick }: BotaoProps) {
     </ul>
   )
 }`,
-    buildsInto: [
-      'react-useeffect',
-    ],
-    tags: [
-      'lista',
-      'key',
-      'map',
-    ],
+    buildsInto: ["react-useeffect"],
+    tags: ["lista", "key", "map"],
   },
   {
-    id: 'react-useref',
-    language: 'react',
-    category: 'Hooks básicos',
-    tier: 'basic',
-    icon: 'Crosshair',
+    id: "react-useref",
+    language: "react",
+    category: "Hooks básicos",
+    tier: "basic",
+    icon: "Crosshair",
     declaration: `const inputRef = useRef<HTMLInputElement>(null)`,
     example: `function CampoComFoco() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -178,21 +142,15 @@ function Botao({ texto, onClick }: BotaoProps) {
 
   return <input ref={inputRef} />
 }`,
-    buildsInto: [
-      'react-forwardref',
-    ],
-    tags: [
-      'useref',
-      'dom',
-      'hooks',
-    ],
+    buildsInto: ["react-forwardref"],
+    tags: ["useref", "dom", "hooks"],
   },
   {
-    id: 'react-controlled-forms',
-    language: 'react',
-    category: 'Hooks básicos',
-    tier: 'basic',
-    icon: 'ClipboardList',
+    id: "react-controlled-forms",
+    language: "react",
+    category: "Hooks básicos",
+    tier: "basic",
+    icon: "ClipboardList",
     declaration: `const [email, setEmail] = useState("")
 
 <input value={email} onChange={(e) => setEmail(e.target.value)} />`,
@@ -211,22 +169,16 @@ function Botao({ texto, onClick }: BotaoProps) {
     </form>
   )
 }`,
-    buildsInto: [
-      'react-useeffect',
-    ],
-    tags: [
-      'formulário',
-      'input',
-      'controlled',
-    ],
+    buildsInto: ["react-useeffect"],
+    tags: ["formulário", "input", "controlled"],
   },
   // Epic — Hooks de ciclo de vida
   {
-    id: 'react-useeffect',
-    language: 'react',
-    category: 'Hooks de ciclo de vida',
-    tier: 'epic',
-    icon: 'Waves',
+    id: "react-useeffect",
+    language: "react",
+    category: "Hooks de ciclo de vida",
+    tier: "epic",
+    icon: "Waves",
     declaration: `useEffect(() => {
   const id = setInterval(() => console.log("tick"), 1000)
   return () => clearInterval(id)
@@ -244,22 +196,15 @@ function Botao({ texto, onClick }: BotaoProps) {
 
   return <p>{usuario?.nome ?? "Carregando..."}</p>
 }`,
-    buildsInto: [
-      'react-usememo-usecallback',
-      'react-uselayouteffect',
-    ],
-    tags: [
-      'useeffect',
-      'hooks',
-      'efeito colateral',
-    ],
+    buildsInto: ["react-usememo-usecallback", "react-uselayouteffect"],
+    tags: ["useeffect", "hooks", "efeito colateral"],
   },
   {
-    id: 'react-uselayouteffect',
-    language: 'react',
-    category: 'Hooks de ciclo de vida',
-    tier: 'epic',
-    icon: 'Layers',
+    id: "react-uselayouteffect",
+    language: "react",
+    category: "Hooks de ciclo de vida",
+    tier: "epic",
+    icon: "Layers",
     declaration: `useLayoutEffect(() => {
   const altura = elementoRef.current?.offsetHeight ?? 0
   setAltura(altura)
@@ -274,18 +219,14 @@ function Botao({ texto, onClick }: BotaoProps) {
 
   return <div ref={ref}>{texto} ({largura}px)</div>
 }`,
-    tags: [
-      'uselayouteffect',
-      'dom',
-      'layout',
-    ],
+    tags: ["uselayouteffect", "dom", "layout"],
   },
   {
-    id: 'react-error-boundaries',
-    language: 'react',
-    category: 'Hooks de ciclo de vida',
-    tier: 'epic',
-    icon: 'ShieldAlert',
+    id: "react-error-boundaries",
+    language: "react",
+    category: "Hooks de ciclo de vida",
+    tier: "epic",
+    icon: "ShieldAlert",
     declaration: `class ErroBoundary extends React.Component {
   state = { temErro: false }
   static getDerivedStateFromError() {
@@ -303,19 +244,15 @@ function Botao({ texto, onClick }: BotaoProps) {
     </ErroBoundary>
   )
 }`,
-    tags: [
-      'error boundary',
-      'erro',
-      'fallback',
-    ],
+    tags: ["error boundary", "erro", "fallback"],
   },
   // Epic — Hooks de performance
   {
-    id: 'react-usememo-usecallback',
-    language: 'react',
-    category: 'Hooks de performance',
-    tier: 'epic',
-    icon: 'Gauge',
+    id: "react-usememo-usecallback",
+    language: "react",
+    category: "Hooks de performance",
+    tier: "epic",
+    icon: "Gauge",
     declaration: `const total = useMemo(() => calcularTotal(itens), [itens])
 const handleClick = useCallback(() => enviar(id), [id])`,
     example: `function ListaCara({ itens }: { itens: number[] }) {
@@ -326,21 +263,15 @@ const handleClick = useCallback(() => enviar(id), [id])`,
 
   return <p>Total: {total}</p>
 }`,
-    buildsInto: [
-      'react-react-memo',
-    ],
-    tags: [
-      'usememo',
-      'usecallback',
-      'performance',
-    ],
+    buildsInto: ["react-react-memo"],
+    tags: ["usememo", "usecallback", "performance"],
   },
   {
-    id: 'react-react-memo',
-    language: 'react',
-    category: 'Hooks de performance',
-    tier: 'epic',
-    icon: 'Copy',
+    id: "react-react-memo",
+    language: "react",
+    category: "Hooks de performance",
+    tier: "epic",
+    icon: "Copy",
     declaration: `const ItemLista = React.memo(function ItemLista({ titulo }: { titulo: string }) {
   return <li>{titulo}</li>
 })`,
@@ -351,21 +282,15 @@ const handleClick = useCallback(() => enviar(id), [id])`,
     </ul>
   )
 }`,
-    buildsInto: [
-      'react-lazy-suspense',
-    ],
-    tags: [
-      'react.memo',
-      'performance',
-      're-render',
-    ],
+    buildsInto: ["react-lazy-suspense"],
+    tags: ["react.memo", "performance", "re-render"],
   },
   {
-    id: 'react-lazy-suspense',
-    language: 'react',
-    category: 'Hooks de performance',
-    tier: 'epic',
-    icon: 'PackageOpen',
+    id: "react-lazy-suspense",
+    language: "react",
+    category: "Hooks de performance",
+    tier: "epic",
+    icon: "PackageOpen",
     declaration: `const Dashboard = React.lazy(() => import("./Dashboard"))`,
     example: `function App() {
   return (
@@ -374,19 +299,15 @@ const handleClick = useCallback(() => enviar(id), [id])`,
     </Suspense>
   )
 }`,
-    tags: [
-      'lazy',
-      'suspense',
-      'code splitting',
-    ],
+    tags: ["lazy", "suspense", "code splitting"],
   },
   // Legendary — Compartilhamento de estado
   {
-    id: 'react-context',
-    language: 'react',
-    category: 'Compartilhamento de estado',
-    tier: 'legendary',
-    icon: 'Share2',
+    id: "react-context",
+    language: "react",
+    category: "Compartilhamento de estado",
+    tier: "legendary",
+    icon: "Share2",
     declaration: `const TemaContext = createContext<"claro" | "escuro">("claro")
 
 function App() {
@@ -400,22 +321,15 @@ function App() {
   const tema = useContext(TemaContext)
   return <button className={tema}>Clique aqui</button>
 }`,
-    buildsInto: [
-      'react-usereducer',
-      'react-compound-components',
-    ],
-    tags: [
-      'context',
-      'provider',
-      'prop drilling',
-    ],
+    buildsInto: ["react-usereducer", "react-compound-components"],
+    tags: ["context", "provider", "prop drilling"],
   },
   {
-    id: 'react-usereducer',
-    language: 'react',
-    category: 'Compartilhamento de estado',
-    tier: 'legendary',
-    icon: 'GitMerge',
+    id: "react-usereducer",
+    language: "react",
+    category: "Compartilhamento de estado",
+    tier: "legendary",
+    icon: "GitMerge",
     declaration: `function reducer(estado: number, acao: { type: "incrementar" | "decrementar" }) {
   switch (acao.type) {
     case "incrementar": return estado + 1
@@ -435,18 +349,14 @@ const [contador, dispatch] = useReducer(reducer, 0)`,
     </>
   )
 }`,
-    tags: [
-      'usereducer',
-      'estado',
-      'reducer',
-    ],
+    tags: ["usereducer", "estado", "reducer"],
   },
   {
-    id: 'react-compound-components',
-    language: 'react',
-    category: 'Compartilhamento de estado',
-    tier: 'legendary',
-    icon: 'Group',
+    id: "react-compound-components",
+    language: "react",
+    category: "Compartilhamento de estado",
+    tier: "legendary",
+    icon: "Group",
     declaration: `const TabsContext = createContext<{ ativa: string; selecionar: (id: string) => void } | null>(null)
 
 function Tabs({ children, inicial }: { children: React.ReactNode; inicial: string }) {
@@ -470,19 +380,15 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
   <Tab id="perfil">Perfil</Tab>
   <Tab id="config">Configurações</Tab>
 </Tabs>`,
-    tags: [
-      'compound components',
-      'context',
-      'padrão',
-    ],
+    tags: ["compound components", "context", "padrão"],
   },
   // Legendary — Composição avançada
   {
-    id: 'react-custom-hooks',
-    language: 'react',
-    category: 'Composição avançada',
-    tier: 'legendary',
-    icon: 'Puzzle',
+    id: "react-custom-hooks",
+    language: "react",
+    category: "Composição avançada",
+    tier: "legendary",
+    icon: "Puzzle",
     declaration: `function useContador(inicial = 0) {
   const [valor, setValor] = useState(inicial)
   const incrementar = () => setValor(v => v + 1)
@@ -492,21 +398,15 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
   const { valor, incrementar } = useContador(10)
   return <button onClick={incrementar}>Total: {valor}</button>
 }`,
-    buildsInto: [
-      'react-render-props',
-    ],
-    tags: [
-      'custom hook',
-      'hooks',
-      'reuso',
-    ],
+    buildsInto: ["react-render-props"],
+    tags: ["custom hook", "hooks", "reuso"],
   },
   {
-    id: 'react-render-props',
-    language: 'react',
-    category: 'Composição avançada',
-    tier: 'legendary',
-    icon: 'Code',
+    id: "react-render-props",
+    language: "react",
+    category: "Composição avançada",
+    tier: "legendary",
+    icon: "Code",
     declaration: `function Mouse({ children }: { children: (pos: { x: number; y: number }) => React.ReactNode }) {
   const [pos, setPos] = useState({ x: 0, y: 0 })
 
@@ -519,18 +419,14 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
     example: `<Mouse>
   {({ x, y }) => <p>Posição: {x}, {y}</p>}
 </Mouse>`,
-    tags: [
-      'render props',
-      'padrão',
-      'children',
-    ],
+    tags: ["render props", "padrão", "children"],
   },
   {
-    id: 'react-forwardref',
-    language: 'react',
-    category: 'Composição avançada',
-    tier: 'legendary',
-    icon: 'Forward',
+    id: "react-forwardref",
+    language: "react",
+    category: "Composição avançada",
+    tier: "legendary",
+    icon: "Forward",
     declaration: `const Campo = forwardRef<HTMLInputElement, { label: string }>(
   function Campo({ label }, ref) {
     return (
@@ -551,10 +447,6 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
     </>
   )
 }`,
-    tags: [
-      'forwardref',
-      'ref',
-      'componente',
-    ],
+    tags: ["forwardref", "ref", "componente"],
   },
-]
+];

@@ -28,7 +28,7 @@ export function LocaleSwitcher() {
         onClick={() => setIsOpen((open) => !open)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-2 rounded-lg border border-slate-700 light:border-slate-300 bg-surface-sunken px-2.5 py-2 text-sm font-medium text-slate-200 light:text-slate-700 transition-colors hover:border-amber-400"
+        className="flex w-full items-center gap-2 rounded-lg border border-slate-700 light:border-slate-300 bg-surface-sunken px-2.5 py-2 text-sm font-medium text-slate-200 light:text-slate-700 transition-colors hover:border-accent"
       >
         <span className="text-base leading-none">{current.flag}</span>
         <span className="flex-1 text-left">{current.label}</span>
@@ -53,7 +53,7 @@ export function LocaleSwitcher() {
                 className={cn(
                   'flex w-full items-center gap-2 px-2.5 py-2 text-left text-sm transition-colors',
                   id === locale
-                    ? 'bg-amber-400/15 font-semibold text-amber-200 light:text-amber-700'
+                    ? 'bg-accent/15 font-semibold text-accent-text'
                     : 'text-slate-300 light:text-slate-600 hover:bg-surface-sunken',
                 )}
               >

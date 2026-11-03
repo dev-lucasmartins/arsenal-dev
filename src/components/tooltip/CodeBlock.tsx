@@ -25,7 +25,7 @@ export function CodeBlock({ code }: { code: string }) {
       <button
         type="button"
         onClick={handleCopy}
-        className="absolute right-2 top-2 z-10 rounded-sm border border-slate-700/60 light:border-slate-300 bg-slate-900/80 light:bg-white/90 p-1 text-slate-400 light:text-slate-500 opacity-0 transition-opacity hover:text-amber-300 light:hover:text-amber-600 group-hover:opacity-100"
+        className="absolute right-2 top-2 z-10 rounded-sm border border-slate-700/60 light:border-slate-300 bg-slate-900/80 light:bg-white/90 p-1 text-slate-400 light:text-slate-600 opacity-0 transition-opacity hover:text-accent-text-strong group-hover:opacity-100"
         aria-label={t.copyCode}
         title={copied ? t.copiedCode : t.copyCode}
       >

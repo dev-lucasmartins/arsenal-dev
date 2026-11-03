@@ -19,16 +19,16 @@ interface UiText {
   toggleToLight: string;
   toggleToDark: string;
   lightModeLabel: string;
-  darkModeLabel: string;
   backToGrid: string;
   itemNotFound: string;
+  aboutNavLabel: string;
   tierLabels: Record<Tier, string>;
 }
 
 export const uiText: Record<Locale, UiText> = {
   "pt-BR": {
     appSubtitle:
-      "Biblioteca visual de estudos - TypeScript, JavaScript, React & Tailwind",
+      "Biblioteca visual de estudos - TypeScript, JavaScript, React, Tailwind & Testes",
     searchPlaceholder: "Buscar conceito ou tag...",
     noResults: "Nenhum conceito encontrado para essa busca.",
     sectionAttributes: "Atributos",
@@ -45,9 +45,9 @@ export const uiText: Record<Locale, UiText> = {
     toggleToLight: "Mudar para tema claro",
     toggleToDark: "Mudar para tema escuro",
     lightModeLabel: "Modo Claro",
-    darkModeLabel: "Modo Escuro",
     backToGrid: "Voltar",
     itemNotFound: "Conceito não encontrado.",
+    aboutNavLabel: "Sobre o Projeto",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",
@@ -57,7 +57,7 @@ export const uiText: Record<Locale, UiText> = {
   },
   en: {
     appSubtitle:
-      "A visual study library - TypeScript, JavaScript, React & Tailwind",
+      "A visual study library - TypeScript, JavaScript, React, Tailwind & Testing",
     searchPlaceholder: "Search a concept or tag...",
     noResults: "No concepts found for this search.",
     sectionAttributes: "Attributes",
@@ -74,9 +74,9 @@ export const uiText: Record<Locale, UiText> = {
     toggleToLight: "Switch to light theme",
     toggleToDark: "Switch to dark theme",
     lightModeLabel: "Light Mode",
-    darkModeLabel: "Dark Mode",
     backToGrid: "Back",
     itemNotFound: "Concept not found.",
+    aboutNavLabel: "About the Project",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",
@@ -86,7 +86,7 @@ export const uiText: Record<Locale, UiText> = {
   },
   es: {
     appSubtitle:
-      "Una biblioteca visual de estudio - TypeScript, JavaScript, React y Tailwind",
+      "Una biblioteca visual de estudio - TypeScript, JavaScript, React, Tailwind y Testing",
     searchPlaceholder: "Buscar un concepto o etiqueta...",
     noResults: "No se encontraron conceptos para esta búsqueda.",
     sectionAttributes: "Atributos",
@@ -103,9 +103,9 @@ export const uiText: Record<Locale, UiText> = {
     toggleToLight: "Cambiar a tema claro",
     toggleToDark: "Cambiar a tema oscuro",
     lightModeLabel: "Modo Claro",
-    darkModeLabel: "Modo Oscuro",
     backToGrid: "Volver",
     itemNotFound: "Concepto no encontrado.",
+    aboutNavLabel: "Acerca del Proyecto",
     tierLabels: {
       starter: "Starter",
       basic: "Basic",

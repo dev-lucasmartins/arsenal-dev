@@ -1,6 +1,7 @@
 # Arsenal Dev
 
-Biblioteca visual de estudos para TypeScript, JavaScript, React e Tailwind CSS, inspirada na página
+Biblioteca visual de estudos para TypeScript, JavaScript, React, Tailwind CSS e Testes Unitários,
+inspirada na página
 ["List of Items"](https://wiki.leagueoflegends.com/en-us/List_of_items) da wiki do League of
 Legends: uma grade de ícones agrupados por categoria e tier, onde cada ícone é um conceito de
 programação em vez de um item do jogo. Passar o mouse mostra um preview rápido; clicar abre a
@@ -19,6 +20,13 @@ Build de produção:
 npm run build
 ```
 
+Testes:
+
+```bash
+npm run test         # roda uma vez e sai (CI)
+npm run test:watch   # modo watch, para desenvolvimento
+```
+
 ## Stack
 
 - React + TypeScript + Vite
@@ -29,19 +37,36 @@ npm run build
 - `prism-react-renderer` para o syntax highlight dos snippets
 - i18n próprio (sem lib externa) para PT-BR / EN / ES, e tema claro/escuro via a variante
   customizada `light:` (ver `src/index.css`)
+- Vitest + Testing Library para os testes (ver seção [Testes](#testes))
+
+## Testes
+
+Arquivos `*.test.ts(x)` ficam ao lado do código que testam (ex.: `src/lib/utils.test.ts`
+testa `src/lib/utils.ts`). `src/test/setup.ts` carrega os matchers do jest-dom; use
+`renderWithProviders` de `src/test/test-utils.tsx` em vez do `render` padrão para
+qualquer componente que use `useLocale()` (ele já embrulha em `LocaleProvider` +
+`BrowserRouter`).
+
+O teste mais importante do projeto é `src/data/index.test.ts`: ele confere que **todo
+item** em `src/data/*.ts` tem uma entrada correspondente nos **três** arquivos de
+`src/i18n/content/` — isso é uma relação que o TypeScript não valida sozinho (explicado
+na seção [Como adicionar um novo conceito](#como-adicionar-um-novo-conceito)), então
+rode `npm run test` depois de adicionar ou editar conceitos para pegar qualquer `id`
+fora de sincronia antes que vire um bug em runtime.
 
 ## Como adicionar um novo conceito
 
 O conteúdo é dividido em duas partes, separadas dos componentes de UI:
 
 - **Estrutura** (não traduzida): `src/data/typescript.ts`, `javascript.ts`, `react.ts`,
-  `tailwind.ts` - um item por conceito, com `id`, `language`, `category`, `tier`, `icon`,
-  os snippets de código (`declaration`/`example`) e `buildsInto`/`tags`.
+  `tailwind.ts`, `testing.ts` - um item por conceito, com `id`, `language`, `category`,
+  `tier`, `icon`, os snippets de código (`declaration`/`example`) e `buildsInto`/`tags`.
 - **Conteúdo textual** (traduzido): `src/i18n/content/pt-BR.ts`, `en.ts`, `es.ts` - um
   arquivo por idioma, cada um um mapa `id do item -> { name, stats, passive, whenToUse,
   avoidWhen }`. Todo item precisa de uma entrada em **todos os três** arquivos (o `id` é
-  a chave que liga as duas partes; nada é verificado pelo TypeScript se a chave não bater,
-  então mantenha os três arquivos sincronizados).
+  a chave que liga as duas partes; nada é verificado pelo TypeScript se a chave não bater
+  — o teste `src/data/index.test.ts` cobre exatamente isso, rode `npm run test` depois de
+  editar conceitos).
 
 Passo a passo para adicionar um conceito novo:
 
@@ -124,7 +149,7 @@ src/
 │   ├── study-item.ts      # tipos StudyItem, StudyItemContent, Language, Tier
 │   └── locale.ts          # tipo Locale, LOCALES
 ├── data/                  # estrutura (sem texto traduzido): typescript.ts, javascript.ts,
-│                          # react.ts, tailwind.ts, index.ts
+│                          # react.ts, tailwind.ts, testing.ts, index.ts
 ├── i18n/
 │   ├── ui-text.ts         # textos fixos da interface, por locale
 │   ├── category-labels.ts # tradução dos rótulos de categoria
@@ -132,6 +157,7 @@ src/
 │                          # pt-BR.ts, en.ts, es.ts, index.ts (getItemContent)
 ├── context/               # LocaleContext, ThemeContext
 ├── pages/
+│   ├── AboutPage.tsx      # página "Sobre o Projeto" (rota /about)
 │   └── ItemDetailPage.tsx # página de detalhe de um conceito (rota /item/:id)
 ├── components/
 │   ├── sidebar/           # árvore de navegação lateral
@@ -142,5 +168,9 @@ src/
 │   ├── ThemeToggle.tsx
 │   └── TierBadge.tsx
 ├── hooks/                 # useCategoryNavigation, useSearch, useLocale, useTheme, useHoverIntent...
-└── lib/                    # utilitários e estilos de tier
+├── lib/                    # utilitários e estilos de tier
+└── test/                  # setup.ts (jest-dom) e test-utils.tsx (renderWithProviders)
 ```
+
+Arquivos `*.test.ts(x)` ficam espalhados ao lado do código que testam (não aparecem
+nessa árvore).

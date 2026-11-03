@@ -11,6 +11,14 @@
   --color-surface-raised: #11182b;
   --color-surface-card: #0d1321;
   --color-ink: #e2e8f0;
+
+  /* Cor de acento semântica - no escuro é o dourado/âmbar da identidade "wiki de LoL";
+     no claro vira o azul do logo (ver :root.light abaixo). Use via text-accent,
+     border-accent, bg-accent etc. em vez de amber-* + light:amber-* repetido. */
+  --color-accent: #fbbf24; /* equivalente a amber-400: bordas, fundo sólido, divisórias */
+  --color-accent-text: #fde68a; /* equivalente a amber-200: texto padrão (títulos, labels ativos) */
+  --color-accent-text-strong: #fcd34d; /* equivalente a amber-300: hover/ênfase */
+  --color-accent-ink: #0f172a; /* texto sobre um fundo sólido de accent (pills, botão CTA) */
 }
 
 :root.light {
@@ -19,6 +27,11 @@
   --color-surface-raised: #ffffff;
   --color-surface-card: #ffffff;
   --color-ink: #1e293b;
+
+  --color-accent: #16576b;
+  --color-accent-text: #16576b;
+  --color-accent-text-strong: #0d3b49;
+  --color-accent-ink: #ffffff;
 }
 
 :root {

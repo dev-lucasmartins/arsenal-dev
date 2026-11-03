@@ -20,7 +20,7 @@ export function ItemDetailPage() {
     return (
       <main className="flex-1 overflow-y-auto px-6 py-6">
         <BackLink />
-        <p className="mt-6 text-slate-400 light:text-slate-500">{t.itemNotFound}</p>
+        <p className="mt-6 text-slate-400 light:text-slate-600">{t.itemNotFound}</p>
       </main>
     )
   }
@@ -41,13 +41,13 @@ export function ItemDetailPage() {
               style.glow,
             )}
           >
-            <ConceptIcon name={item.icon} className="h-10 w-10 text-amber-200 light:text-amber-700" />
+            <ConceptIcon name={item.icon} className="h-10 w-10 text-accent-text" />
           </span>
           <div className="min-w-0">
-            <h1 className="text-2xl font-bold text-amber-200 light:text-amber-700">{content.name}</h1>
+            <h1 className="text-2xl font-bold text-accent-text">{content.name}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <TierBadge tier={item.tier} />
-              <span className="text-xs uppercase tracking-widest text-slate-500 light:text-slate-400">
+              <span className="text-xs uppercase tracking-widest text-slate-500 light:text-slate-500">
                 {translateCategory(item.category, locale)}
               </span>
             </div>
@@ -101,7 +101,7 @@ export function ItemDetailPage() {
                       key={relatedId}
                       to={`/item/${relatedId}`}
                       className={cn(
-                        'flex items-center gap-2 rounded-sm border bg-surface-raised px-2.5 py-1.5 text-[13px] transition-colors hover:border-amber-400',
+                        'flex items-center gap-2 rounded-sm border bg-surface-raised px-2.5 py-1.5 text-[13px] transition-colors hover:border-accent',
                         relatedStyle.border,
                       )}
                     >
@@ -124,7 +124,7 @@ function BackLink() {
   return (
     <Link
       to="/"
-      className="inline-flex items-center gap-1.5 text-sm text-slate-400 light:text-slate-500 transition-colors hover:text-amber-300 light:hover:text-amber-700"
+      className="inline-flex items-center gap-1.5 text-sm text-slate-400 light:text-slate-600 transition-colors hover:text-accent-text-strong"
     >
       <ArrowLeft size={15} />
       {t.backToGrid}
@@ -135,9 +135,7 @@ function BackLink() {
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-amber-400/80 light:text-amber-600">
-        {title}
-      </h2>
+      <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-accent/80">{title}</h2>
       {children}
     </section>
   )

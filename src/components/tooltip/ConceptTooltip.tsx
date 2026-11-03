@@ -39,9 +39,7 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
           <ConceptIcon name={item.icon} className="h-5 w-5" />
         </div>
         <div className="min-w-0">
-          <h3 className="truncate text-[15px] font-semibold text-amber-200 light:text-amber-700">
-            {content.name}
-          </h3>
+          <h3 className="truncate text-[15px] font-semibold text-accent-text">{content.name}</h3>
           <TierBadge tier={item.tier} className="mt-1" />
         </div>
       </header>
@@ -61,7 +59,7 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
         </Section>
 
         <Section title={t.sectionPassive}>
-          <p className="italic text-slate-400 light:text-slate-500">
+          <p className="italic text-slate-400 light:text-slate-600">
             {content.passive}
           </p>
         </Section>
@@ -96,7 +94,7 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
                   <Link
                     key={id}
                     to={`/item/${id}`}
-                    className="rounded-sm border border-slate-600 light:border-slate-300 px-2 py-0.5 text-[11px] text-slate-300 light:text-slate-600 transition-colors hover:border-amber-400 hover:text-amber-300 light:hover:text-amber-700"
+                    className="rounded-sm border border-slate-600 light:border-slate-300 px-2 py-0.5 text-[11px] text-slate-300 light:text-slate-600 transition-colors hover:border-accent hover:text-accent-text-strong"
                   >
                     {getItemContent(related.id, locale).name}
                   </Link>
@@ -113,9 +111,7 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="mb-3 last:mb-0">
-      <h4 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-amber-400/80 light:text-amber-600">
-        {title}
-      </h4>
+      <h4 className="mb-1 text-[10px] font-bold uppercase tracking-wider text-accent/80">{title}</h4>
       {children}
     </div>
   );

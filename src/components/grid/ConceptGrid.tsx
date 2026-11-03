@@ -30,11 +30,11 @@ export function ConceptGrid({
 
   return (
     <main className="flex-1 overflow-y-auto px-6 py-6">
-      <h2 className="mb-4 border-b border-amber-400/30 pb-2 text-xl font-semibold text-amber-200 light:text-amber-700">
+      <h2 className="mb-4 border-b border-accent/30 pb-2 text-xl font-semibold text-accent-text">
         {languageLabel}
       </h2>
       {tierGroups.length === 0 ? (
-        <p className="py-16 text-center text-slate-500 light:text-slate-400">{t.noResults}</p>
+        <p className="py-16 text-center text-slate-500 light:text-slate-500">{t.noResults}</p>
       ) : (
         tierGroups.map((tierGroup) => (
           <TierSection

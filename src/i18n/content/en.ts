@@ -1054,4 +1054,217 @@ export const enContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "Don't overuse `@apply` in a React project - that recreates the problem Tailwind solves (CSS separated from markup) without the benefit of a truly reusable component.",
   },
+
+  // Unit Testing
+  "test-what-is-unit-test": {
+    name: "What is a Unit Test",
+    stats: [
+      "Checks a small unit of code in isolation",
+      "Runs fast - no network, database, or real UI involved",
+      "Gives you confidence to refactor without fear of breaking things",
+    ],
+    passive:
+      "A unit test checks that a function, hook, or component behaves as expected, isolated from the rest of the system. It's the base of the testing pyramid: many small, fast tests instead of a few large, slow ones.",
+    whenToUse:
+      "For any logic with a predictable outcome - pure functions, hooks, components, utilities.",
+    avoidWhen:
+      "Don't try to test everything in a single test - if a test needs a lot of setup, it's probably testing more than one thing.",
+  },
+  "test-structure": {
+    name: "Test Structure (describe/it/expect)",
+    stats: [
+      "`describe` groups related tests together",
+      "`it`/`test` describes one specific behavior",
+      "`expect` performs the actual check (assertion)",
+    ],
+    passive:
+      'A test follows the "arrange, act, assert" pattern: set up the data, perform the action, and check the result. `describe` organizes related tests into a group; each `it` inside it tests one specific behavior with a descriptive name.',
+    whenToUse: "Always - it's the basic structure of any test file.",
+    avoidWhen:
+      'Avoid vague test names like "it works" - write exactly what is being checked.',
+  },
+  "test-assertions": {
+    name: "Basic Assertions",
+    stats: [
+      "`toBe` compares by strict equality (===)",
+      "`toEqual` compares objects/arrays by value",
+      "`toContain`, `toThrow`, `toBeNull` cover common cases",
+    ],
+    passive:
+      "Assertions are the actual checks inside a test - they decide whether the test passes or fails. `expect(value)` returns an object with dozens of matchers (`toBe`, `toEqual`, `toContain`...) to compare the result against what's expected.",
+    whenToUse:
+      "`toBe` for primitives (numbers, strings, booleans); `toEqual` for objects and arrays, since `toBe` would compare the reference, not the content.",
+    avoidWhen:
+      "Don't use `toBe` to compare objects/arrays - `{} !== {}` in JavaScript, so the test would fail even with identical content.",
+  },
+  "test-running": {
+    name: "Running the Tests",
+    stats: [
+      "`vitest run` runs once and exits (good for CI)",
+      "`vitest` (without run) stays in watch mode, reruns on save",
+      "Scripts in `package.json` standardize the commands",
+    ],
+    passive:
+      "The test runner discovers test files (usually `*.test.ts`), runs each one, and reports which passed or failed. Watch mode is the most common during development, since it automatically reruns affected tests on every save.",
+    whenToUse:
+      "Watch mode (`npm run test:watch`) while coding; `npm run test` (runs once) in CI/build scripts.",
+  },
+  "test-setup-teardown": {
+    name: "Setup & Teardown",
+    stats: [
+      "`beforeEach`/`afterEach` run before/after each test",
+      "`beforeAll`/`afterAll` run once for the whole file",
+      "Avoids duplicating the same setup in every test",
+    ],
+    passive:
+      "Setup and teardown prepare and clean up state around each test, making sure one test doesn't leak into another. `beforeEach` runs before every `it`; `beforeAll` runs only once, before all tests in the file.",
+    whenToUse:
+      "When several tests in the same file need the same preparation (resetting a mock, recreating an object) - avoids repeating code.",
+    avoidWhen:
+      "Don't put test logic inside `beforeEach` - it should only prepare the ground, the actual check belongs in `it`.",
+  },
+  "test-fixtures": {
+    name: "Fixtures & Test Data",
+    stats: [
+      "Reusable sample data shared across tests",
+      "Factory functions let you customize only what matters",
+      "Keeps the test focused on behavior, not on the data",
+    ],
+    passive:
+      'A fixture is a pre-built, reusable piece of test data - instead of building a "user" object from scratch in every test, a factory function generates a sensible default that each test can override only where needed.',
+    whenToUse:
+      "When several tests need similar data (a user, an order, a list of items) - centralizes the shape of the data in one place.",
+    avoidWhen:
+      "Avoid fixtures that try to be too generic for every case - sometimes a plain object literal right in the test is clearer than an overcomplicated fixture.",
+  },
+  "test-pure-functions": {
+    name: "Testing Pure Functions",
+    stats: [
+      "Same input always produces the same output",
+      "Easier to test - no mocks, no side effects",
+      "A great starting point if you're new to testing",
+    ],
+    passive:
+      "Pure functions (no side effects, no dependency on external state) are the simplest case to test: you just call the function with known inputs and compare the output against the expected value.",
+    whenToUse:
+      "For utilities, helpers, formatters, validators - any function that just turns input into output.",
+  },
+  "test-coverage": {
+    name: "Test Coverage",
+    stats: [
+      "Measures what % of the code runs during the tests",
+      "Vitest uses the `v8` provider natively, nothing extra to install",
+      "Generates a report in text, HTML, or other formats",
+    ],
+    passive:
+      "Test coverage measures how many lines, branches, and functions actually run when the tests execute. It's a useful signal, but it doesn't guarantee correct behavior - only that the code was executed.",
+    whenToUse:
+      "To find parts of the code with no tests at all, especially before a large refactor.",
+    avoidWhen:
+      '100% coverage with weak assertions guarantees nothing, so don\'t chase it as a goal in itself; a few good tests beat many that just "touch" the code.',
+  },
+  "test-testing-library": {
+    name: "Testing Library (render, screen, queries)",
+    stats: [
+      "`render` mounts the component in a virtual DOM (jsdom)",
+      "`screen` gives you access to everything that was rendered",
+      "Queries (`getByRole`, `getByText`...) find elements the way a user would",
+    ],
+    passive:
+      'Testing Library renders React components in a test environment and lets you query them the way a user would "see" the screen - by visible text, semantic role, or label - instead of relying on implementation details like class names.',
+    whenToUse:
+      "To test that a component renders what it should, with the right text and semantic structure.",
+    avoidWhen:
+      "Avoid testing implementation details (an internal state variable's name, the exact DOM structure) - test what the user sees and does.",
+  },
+  "test-user-event": {
+    name: "Simulating User Interaction",
+    stats: [
+      "`userEvent.setup()` creates an interaction session",
+      "Simulates real events (typing, clicking, focus) realistically",
+      "Async functions - always use `await`",
+    ],
+    passive:
+      "`user-event` simulates user interactions more faithfully than firing DOM events directly - typing one character at a time, for example, instead of setting the whole value at once.",
+    whenToUse:
+      "To test behavior that depends on interaction: typing into a field, clicking a button, navigating with the keyboard.",
+  },
+  "test-hooks": {
+    name: "Testing Hooks",
+    stats: [
+      "`renderHook` runs a hook outside of a component",
+      "`result.current` gives you the value returned by the hook",
+      "`act` ensures state updates are processed correctly",
+    ],
+    passive:
+      "`renderHook` lets you test a custom hook in isolation, without mounting a component just for that. Any state update triggered in the test (like calling a function returned by the hook) needs to be wrapped in `act` so React processes it correctly.",
+    whenToUse:
+      "To test the logic of a custom hook (like `useSearch` or `useCategoryNavigation`) without coupling the test to a specific component.",
+  },
+  "test-mocks-spies": {
+    name: "Mocks & Spies",
+    stats: [
+      "`vi.fn()` creates a fake function that records its calls",
+      "`vi.mock()` replaces an entire module with a fake version",
+      "Lets you test without relying on a real network, database, or external APIs",
+    ],
+    passive:
+      "A mock replaces a real dependency with a version controlled by the test. `vi.fn()` creates a function that records how many times it was called and with what arguments, useful for verifying a callback actually fired.",
+    whenToUse:
+      "When the code under test depends on something external (API, database, timer) that you don't want (or can't) run for real during the test.",
+    avoidWhen:
+      "Don't overuse mocks to the point where the test only verifies you configured the mock correctly - that tests the mock, not your code.",
+  },
+  "test-async": {
+    name: "Testing Async Code",
+    stats: [
+      "`await` inside the test waits for a Promise to resolve",
+      "`waitFor` waits until a condition becomes true",
+      'Avoids "flaky" tests that randomly pass or fail',
+    ],
+    passive:
+      "Tests involving async code (fetch, timers, effects) need to wait for the result before asserting. `waitFor` re-checks at short intervals until it passes or times out, instead of using a fixed `setTimeout` and hoping it was long enough.",
+    whenToUse:
+      "Whenever the component or function under test depends on an async operation (a request, an effect, a debounce).",
+    avoidWhen:
+      "Avoid a fixed `setTimeout` inside a test to \"wait\" for something - it's slow and can still fail if the operation takes longer than expected.",
+  },
+  "test-doubles": {
+    name: "Test Doubles (mock vs stub vs spy)",
+    stats: [
+      "Stub: returns a fixed value, no logic",
+      "Spy: records how the real function was called, without changing its behavior",
+      "Mock: replaces the real behavior with a configurable fake",
+    ],
+    passive:
+      '"Test double" is the general term for any stand-in for a real dependency in a test. The exact terms differ by nuance: a stub just returns a fixed value; a spy observes calls to the real function without altering it; a mock replaces the entire behavior with a controlled version.',
+    whenToUse:
+      "Spy when you want to keep the real behavior but verify how it was called; mock when you want to replace the behavior entirely; stub for simple, predictable responses.",
+  },
+  "test-snapshot": {
+    name: "Snapshot Testing",
+    stats: [
+      "`toMatchSnapshot` saves the current output as a reference",
+      "Later runs compare the output against that saved snapshot",
+      "Good for catching accidental changes, not for validating behavior",
+    ],
+    passive:
+      "A snapshot test saves a component's (or value's) output to a file on the first run, and on later runs compares the current output against the saved one, flagging anything that changed. It's more about detecting change than validating correctness.",
+    whenToUse:
+      "To catch unintended changes in the structure of a complex component that should rarely change.",
+    avoidWhen:
+      "Avoid relying only on snapshots - it's easy to \"accept\" a broken change without noticing, just because the updated snapshot looks reasonable at a glance.",
+  },
+  "test-ci": {
+    name: "Continuous Integration (CI)",
+    stats: [
+      "Runs the tests automatically on every push/PR",
+      "Catches regressions before they reach the main branch",
+      "Commonly done with GitHub Actions, GitLab CI, etc.",
+    ],
+    passive:
+      "Continuous integration (CI) runs the test suite automatically whenever the repository changes, usually before allowing a pull request to be merged. This ensures no one breaks the tests without noticing.",
+    whenToUse:
+      "In any project with more than one person (or more than one day) working on it - CI catches mistakes before they become a production problem.",
+  },
 };

@@ -1,7 +1,5 @@
 import type { Locale } from "../types/locale";
 
-/** Traduções dos rótulos de categoria (a chave é o texto em pt-BR já usado em `category`
- * nos arquivos de dados - assim os 75 itens não precisam ser tocados). */
 export const categoryLabels: Record<string, Record<Locale, string>> = {
   "Tipagem básica": {
     "pt-BR": "Tipagem básica",
@@ -81,6 +79,16 @@ export const categoryLabels: Record<string, Record<Locale, string>> = {
     es: "Interactividad",
   },
   Avançado: { "pt-BR": "Avançado", en: "Advanced", es: "Avanzado" },
+  Organização: {
+    "pt-BR": "Organização",
+    en: "Organization",
+    es: "Organización",
+  },
+  "Testando Componentes": {
+    "pt-BR": "Testando Componentes",
+    en: "Testing Components",
+    es: "Probando Componentes",
+  },
 };
 
 export function translateCategory(category: string, locale: Locale): string {

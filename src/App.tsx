@@ -6,7 +6,9 @@ import { allItems } from "./data";
 import { useCategoryNavigation } from "./hooks/useCategoryNavigation";
 import { useLocale } from "./hooks/useLocale";
 import { useSearch } from "./hooks/useSearch";
+import { AboutPage } from "./pages/AboutPage";
 import { ItemDetailPage } from "./pages/ItemDetailPage";
+import { ThemeToggle } from "./components/ThemeToggle";
 
 export default function App() {
   const {
@@ -29,16 +31,17 @@ export default function App() {
             className="h-20 w-20 shrink-0 object-contain"
           />
           <div>
-            <h1 className="text-lg font-bold tracking-wide text-amber-300 light:text-[#16576b]">
+            <h1 className="text-lg font-bold tracking-wide text-accent-text-strong">
               Arsenal Dev
             </h1>
-            <p className="text-xs text-slate-400 light:text-slate-500">
+            <p className="text-xs text-slate-400 light:text-slate-600">
               {t.appSubtitle}
             </p>
           </div>
         </div>
         <div className="flex min-w-0 items-center gap-3">
           <SearchBar value={query} onChange={setQuery} />
+          <ThemeToggle />
         </div>
       </header>
       <div className="flex flex-1 overflow-hidden">
@@ -61,6 +64,7 @@ export default function App() {
             }
           />
           <Route path="/item/:id" element={<ItemDetailPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
     </div>

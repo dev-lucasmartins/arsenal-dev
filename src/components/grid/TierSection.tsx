@@ -48,7 +48,7 @@ export function TierSection({
               isHighlighted && "category-highlight",
             )}
           >
-            <h3 className="mb-2 text-[13px] font-medium text-slate-400 light:text-slate-500">
+            <h3 className="mb-2 text-[13px] font-medium text-slate-400 light:text-slate-600">
               {translateCategory(group.category, locale)}
             </h3>
             <div className="flex flex-wrap gap-x-2 gap-y-3">

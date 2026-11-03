@@ -2,6 +2,7 @@ import type { Language, StudyItem, Tier } from "../types/study-item";
 import { javascriptItems } from "./javascript";
 import { reactItems } from "./react";
 import { tailwindItems } from "./tailwind";
+import { testingItems } from "./testing";
 import { typescriptItems } from "./typescript";
 
 export const allItems: StudyItem[] = [
@@ -9,6 +10,7 @@ export const allItems: StudyItem[] = [
   ...javascriptItems,
   ...reactItems,
   ...tailwindItems,
+  ...testingItems,
 ];
 
 export const itemsById = new Map(allItems.map((item) => [item.id, item]));
@@ -22,13 +24,11 @@ export interface CategoryGroup {
   items: StudyItem[];
 }
 
-export interface TierGroup {
+interface TierGroup {
   tier: Tier;
   categories: CategoryGroup[];
 }
 
-/** Agrupa os itens de uma linguagem por tier e, dentro do tier, por categoria -
- * na ordem em que aparecem nos arquivos de dados. */
 export function groupByTierAndCategory(language: Language): TierGroup[] {
   const items = getItemsByLanguage(language);
   const tierOrder: Tier[] = ["starter", "basic", "epic", "legendary"];
