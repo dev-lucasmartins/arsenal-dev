@@ -25,6 +25,7 @@ export function TooltipPortal({
   return createPortal(
     <div
       ref={tooltipRef}
+      data-tooltip-portal=""
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       className="fixed z-50"

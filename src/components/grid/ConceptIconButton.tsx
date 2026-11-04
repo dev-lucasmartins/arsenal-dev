@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useHoverIntent } from '../../hooks/useHoverIntent'
 import { useLocale } from '../../hooks/useLocale'
@@ -15,12 +15,31 @@ const TOUCH_ECHO_MS = 500
 
 export function ConceptIconButton({ item }: { item: StudyItem }) {
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null)
+  const [isPinned, setIsPinned] = useState(false)
   const { isHovering, open, close, openImmediately, closeImmediately, cancelTimers } = useHoverIntent()
   const { locale } = useLocale()
 
   const lastTouchAt = useRef(0)
   const isLongPress = useRef(false)
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  // depois de um long-press, o tooltip fica "fixado" (não fecha ao soltar o
+  // dedo) até o usuário tocar fora dele - dá tempo de rolar conteúdo longo
+  useEffect(() => {
+    if (!isPinned) return
+
+    function handleOutsideTouch(event: TouchEvent) {
+      const target = event.target as Node
+      if (target instanceof Element && target.closest('[data-tooltip-portal]')) return
+
+      setIsPinned(false)
+      closeImmediately()
+      if (anchorEl?.contains(target)) event.preventDefault()
+    }
+
+    document.addEventListener('touchstart', handleOutsideTouch, { passive: false })
+    return () => document.removeEventListener('touchstart', handleOutsideTouch)
+  }, [isPinned, anchorEl, closeImmediately])
 
   const isOpen = isHovering
   const style = tierStyles[item.tier]
@@ -58,7 +77,7 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
     clearTimeout(longPressTimer.current)
     if (isLongPress.current) {
       event.preventDefault()
-      closeImmediately()
+      setIsPinned(true)
       isLongPress.current = false
     }
   }
@@ -72,6 +91,16 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
     if (isLongPress.current) event.preventDefault()
   }
 
+  function handleMouseLeave() {
+    setIsPinned(false)
+    close()
+  }
+
+  function handleBlur() {
+    setIsPinned(false)
+    closeImmediately()
+  }
+
   return (
     <>
       <Link
@@ -79,9 +108,9 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
         to={`/item/${item.id}`}
         title={content.name}
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={close}
+        onMouseLeave={handleMouseLeave}
         onFocus={handleFocus}
-        onBlur={closeImmediately}
+        onBlur={handleBlur}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -113,7 +142,7 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
         </span>
       </Link>
 
-      <TooltipPortal anchorEl={anchorEl} isOpen={isOpen} onMouseEnter={cancelTimers} onMouseLeave={close}>
+      <TooltipPortal anchorEl={anchorEl} isOpen={isOpen} onMouseEnter={cancelTimers} onMouseLeave={handleMouseLeave}>
         <ConceptTooltip item={item} />
       </TooltipPortal>
     </>

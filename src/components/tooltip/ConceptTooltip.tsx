@@ -44,7 +44,7 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
         </div>
       </header>
 
-      <div className="max-h-[70vh] overflow-y-auto px-3 py-3 text-[13px] text-slate-300 light:text-slate-700">
+      <div className="max-h-[70vh] overflow-y-auto overscroll-contain px-3 py-3 text-[13px] text-slate-300 light:text-slate-700">
         <Section title={t.sectionAttributes}>
           <ul className="space-y-1">
             {content.stats.map((stat) => (
