@@ -35,7 +35,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-surface text-slate-200 light:text-slate-800">
+    <div className="flex h-dvh flex-col bg-surface text-slate-200 light:text-slate-800">
       <header className="z-10 flex flex-col gap-3 border-b border-slate-700/60 light:border-slate-200 bg-surface-sunken px-4 py-3 shadow-sm sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-3 sm:gap-4">
           <button
