@@ -57,6 +57,20 @@ export function AboutPage() {
             </ol>
           </Section>
 
+          <Section title={content.topicsHeading}>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {content.topics.map((topic) => (
+                <div
+                  key={topic.label}
+                  className="rounded-xl border border-slate-700 light:border-slate-300 bg-surface-raised p-3 shadow-sm"
+                >
+                  <p className="text-sm font-semibold text-accent-text-strong">{topic.label}</p>
+                  <p className="mt-1 text-sm text-slate-300 light:text-slate-700">{topic.description}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+
           <Section title={content.stackHeading}>
             <div className="flex flex-wrap gap-2">
               {content.stackItems.map((tech) => (

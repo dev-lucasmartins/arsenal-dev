@@ -1,12 +1,19 @@
 import type { Locale } from '../types/locale'
 import type { Tier } from '../types/study-item'
 
+export interface AboutTopic {
+  label: string
+  description: string
+}
+
 export interface AboutContent {
   tagline: string
   introHeading: string
   intro: string
   howToUseHeading: string
   howToUseSteps: string[]
+  topicsHeading: string
+  topics: AboutTopic[]
   stackHeading: string
   stackItems: string[]
   tiersHeading: string
@@ -20,7 +27,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     tagline: 'Uma biblioteca visual de estudos para quem aprende programação por associação visual.',
     introHeading: 'O que é',
     intro:
-      'Arsenal Dev nasceu de uma ideia simples: e se aprender TypeScript, JavaScript, React, Tailwind CSS e testes unitários fosse parecido com explorar a página de itens de um jogo? Cada conceito de programação vira um ícone, agrupado por categoria e por nível de dificuldade.',
+      'Arsenal Dev nasceu de uma ideia simples: e se aprender front-end fosse parecido com explorar a página de itens de um jogo? Cada conceito de programação vira um ícone, agrupado por categoria e por nível de dificuldade.',
     howToUseHeading: 'Como usar',
     howToUseSteps: [
       'Passe o mouse sobre um ícone para ver um preview rápido: atributos, o que é, e um exemplo de código.',
@@ -28,6 +35,22 @@ export const aboutContent: Record<Locale, AboutContent> = {
       'Use a busca no topo para encontrar um conceito pelo nome ou por uma tag.',
       'Navegue pela sidebar: escolha a linguagem e depois a categoria que quer estudar.',
       'Troque o idioma (PT-BR/EN/ES) e o tema (claro/escuro) a qualquer momento, nas opções da sidebar.',
+    ],
+    topicsHeading: 'Tópicos cobertos',
+    topics: [
+      { label: 'TypeScript', description: 'Tipagem estática para pegar erros antes de rodar o código.' },
+      { label: 'JavaScript', description: 'A base da linguagem - sintaxe moderna, funções e assincronismo.' },
+      { label: 'React', description: 'Componentes, hooks e os padrões usados para construir interfaces.' },
+      { label: 'Tailwind CSS', description: 'Estilização utility-first, direto na marcação.' },
+      { label: 'Unit Testing', description: 'Como testar funções, hooks e componentes com confiança.' },
+      {
+        label: 'Accessibility',
+        description: 'Construir interfaces que funcionam pra todo mundo, incluindo leitor de tela e navegação por teclado.',
+      },
+      {
+        label: 'Performance',
+        description: 'Técnicas de carregamento, renderização e cache pra manter a aplicação rápida e responsiva.',
+      },
     ],
     stackHeading: 'Tecnologias',
     stackItems: [
@@ -55,7 +78,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     tagline: 'A visual study library for people who learn programming by visual association.',
     introHeading: 'What it is',
     intro:
-      "Arsenal Dev started from a simple idea: what if learning TypeScript, JavaScript, React, Tailwind CSS, and unit testing felt like browsing a game's item wiki? Every programming concept becomes an icon, grouped by category and difficulty.",
+      "Arsenal Dev started from a simple idea: what if learning front-end felt like browsing a game's item wiki? Every programming concept becomes an icon, grouped by category and difficulty.",
     howToUseHeading: 'How to use it',
     howToUseSteps: [
       'Hover over an icon for a quick preview: attributes, what it is, and a code example.',
@@ -63,6 +86,22 @@ export const aboutContent: Record<Locale, AboutContent> = {
       'Use the search bar at the top to find a concept by name or tag.',
       'Browse the sidebar: pick a language, then the category you want to study.',
       'Switch language (PT-BR/EN/ES) and theme (light/dark) anytime from the sidebar.',
+    ],
+    topicsHeading: 'Topics covered',
+    topics: [
+      { label: 'TypeScript', description: 'Static typing to catch errors before running the code.' },
+      { label: 'JavaScript', description: 'The language itself - modern syntax, functions, and asynchrony.' },
+      { label: 'React', description: 'Components, hooks, and the patterns used to build interfaces.' },
+      { label: 'Tailwind CSS', description: 'Utility-first styling, right in the markup.' },
+      { label: 'Unit Testing', description: 'How to test functions, hooks, and components with confidence.' },
+      {
+        label: 'Accessibility',
+        description: 'Building interfaces that work for everyone, including screen readers and keyboard navigation.',
+      },
+      {
+        label: 'Performance',
+        description: 'Loading, rendering, and caching techniques to keep the app fast and responsive.',
+      },
     ],
     stackHeading: 'Tech stack',
     stackItems: [
@@ -90,7 +129,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     tagline: 'Una biblioteca visual de estudio para quienes aprenden programación por asociación visual.',
     introHeading: 'Qué es',
     intro:
-      'Arsenal Dev nació de una idea simple: ¿y si aprender TypeScript, JavaScript, React, Tailwind CSS y pruebas unitarias se pareciera a explorar la página de objetos de un juego? Cada concepto de programación se convierte en un ícono, agrupado por categoría y nivel de dificultad.',
+      'Arsenal Dev nació de una idea simple: ¿y si aprender front-end se pareciera a explorar la página de objetos de un juego? Cada concepto de programación se convierte en un ícono, agrupado por categoría y nivel de dificultad.',
     howToUseHeading: 'Cómo usarlo',
     howToUseSteps: [
       'Pasa el mouse sobre un ícono para ver un preview rápido: atributos, qué es, y un ejemplo de código.',
@@ -98,6 +137,22 @@ export const aboutContent: Record<Locale, AboutContent> = {
       'Usa la búsqueda en la parte superior para encontrar un concepto por nombre o etiqueta.',
       'Navega por la barra lateral: elige el lenguaje y luego la categoría que quieras estudiar.',
       'Cambia el idioma (PT-BR/EN/ES) y el tema (claro/oscuro) en cualquier momento, desde la barra lateral.',
+    ],
+    topicsHeading: 'Temas cubiertos',
+    topics: [
+      { label: 'TypeScript', description: 'Tipado estático para detectar errores antes de ejecutar el código.' },
+      { label: 'JavaScript', description: 'La base del lenguaje - sintaxis moderna, funciones y asincronía.' },
+      { label: 'React', description: 'Componentes, hooks y los patrones usados para construir interfaces.' },
+      { label: 'Tailwind CSS', description: 'Estilizado utility-first, directo en el marcado.' },
+      { label: 'Unit Testing', description: 'Cómo probar funciones, hooks y componentes con confianza.' },
+      {
+        label: 'Accessibility',
+        description: 'Construir interfaces que funcionan para todos, incluyendo lectores de pantalla y navegación por teclado.',
+      },
+      {
+        label: 'Performance',
+        description: 'Técnicas de carga, renderizado y caché para mantener la aplicación rápida y responsiva.',
+      },
     ],
     stackHeading: 'Tecnologías',
     stackItems: [
