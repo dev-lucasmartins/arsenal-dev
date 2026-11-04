@@ -11,22 +11,29 @@ interface UseSearchResult {
   matchedIds: Set<string> | null;
 }
 
+function normalize(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
+}
+
 export function useSearch(items: StudyItem[], locale: Locale): UseSearchResult {
   const [query, setQuery] = useState("");
 
   const matchedIds = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalize(query.trim());
     if (!q) return null;
 
     const ids = new Set<string>();
     for (const item of items) {
-      const haystack = [
-        getItemContent(item.id, locale).name,
-        translateCategory(item.category, locale),
-        ...(item.tags ?? []),
-      ]
-        .join(" ")
-        .toLowerCase();
+      const haystack = normalize(
+        [
+          getItemContent(item.id, locale).name,
+          translateCategory(item.category, locale),
+          ...(item.tags ?? []),
+        ].join(" "),
+      );
       if (haystack.includes(q)) ids.add(item.id);
     }
     return ids;

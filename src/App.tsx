@@ -24,6 +24,16 @@ export default function App() {
   const { locale, t } = useLocale();
   const { query, setQuery, matchedIds } = useSearch(allItems, locale);
 
+  function handleSelectLanguage(lang: Parameters<typeof selectLanguage>[0]) {
+    setQuery("");
+    selectLanguage(lang);
+  }
+
+  function handleSelectCategory(...args: Parameters<typeof selectCategory>) {
+    setQuery("");
+    selectCategory(...args);
+  }
+
   return (
     <div className="flex h-screen flex-col bg-surface text-slate-200 light:text-slate-800">
       <header className="z-10 flex flex-col gap-3 border-b border-slate-700/60 light:border-slate-200 bg-surface-sunken px-4 py-3 shadow-sm sm:px-6 lg:flex-row lg:items-center lg:justify-between">
@@ -64,8 +74,8 @@ export default function App() {
         <Sidebar
           activeLanguage={activeLanguage}
           activeCategory={activeCategory}
-          onSelectLanguage={selectLanguage}
-          onSelectCategory={selectCategory}
+          onSelectLanguage={handleSelectLanguage}
+          onSelectCategory={handleSelectCategory}
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />

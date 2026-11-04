@@ -61,4 +61,22 @@ describe('useSearch', () => {
 
     expect(result.current.matchedIds).toContain('tw-grid')
   })
+
+  it('is accent-insensitive', () => {
+    const jsItems = allItems.filter((item) => item.language === 'javascript')
+    const { result } = renderHook(() => useSearch(jsItems, 'pt-BR'))
+
+    act(() => result.current.setQuery('funcoes'))
+
+    expect(result.current.matchedIds).toContain('js-functions')
+  })
+
+  it('matches an accented query against accented content', () => {
+    const jsItems = allItems.filter((item) => item.language === 'javascript')
+    const { result } = renderHook(() => useSearch(jsItems, 'pt-BR'))
+
+    act(() => result.current.setQuery('FUNÇÕES'))
+
+    expect(result.current.matchedIds).toContain('js-functions')
+  })
 })
