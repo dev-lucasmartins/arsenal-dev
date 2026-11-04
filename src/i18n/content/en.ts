@@ -1,7 +1,6 @@
 import type { StudyItemContent } from "../../types/study-item";
 
 export const enContent: Record<string, StudyItemContent> = {
-  // TypeScript
   "ts-basic-types": {
     name: "Basic Typing",
     stats: [
@@ -310,7 +309,6 @@ export const enContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "In regular application code, without a framework that already uses decorators, the extra complexity rarely pays off compared to a simple helper function.",
   },
-  // JavaScript
   "js-variables-primitives": {
     name: "Variables & Primitive Types",
     stats: [
@@ -549,7 +547,6 @@ export const enContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "For simple transformations of arrays that already exist, array methods (`map`/`filter`) are more direct than a generator.",
   },
-  // React
   "react-components-jsx": {
     name: "Components & JSX",
     stats: [
@@ -830,7 +827,6 @@ export const enContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "If nobody outside the component needs direct access to its internal DOM, `forwardRef` is indirection without need.",
   },
-  // Tailwind
   "tw-spacing": {
     name: "Spacing (Margin & Padding)",
     stats: [
@@ -1055,7 +1051,6 @@ export const enContent: Record<string, StudyItemContent> = {
       "Don't overuse `@apply` in a React project - that recreates the problem Tailwind solves (CSS separated from markup) without the benefit of a truly reusable component.",
   },
 
-  // Unit Testing
   "test-what-is-unit-test": {
     name: "What is a Unit Test",
     stats: [

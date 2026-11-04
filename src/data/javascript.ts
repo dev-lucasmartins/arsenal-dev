@@ -1,7 +1,6 @@
 import type { StudyItem } from '../types/study-item'
 
 export const javascriptItems: StudyItem[] = [
-  // Starter - Fundamentos
   {
     id: 'js-variables-primitives',
     language: 'javascript',
@@ -106,7 +105,6 @@ classificar(8) // "aprovado"`,
       'loops',
     ],
   },
-  // Basic - Sintaxe moderna
   {
     id: 'js-destructuring',
     language: 'javascript',
@@ -202,7 +200,6 @@ saudacao({ nome: "Ana" }) // "Olá, Ana!"`,
       'nullish coalescing',
     ],
   },
-  // Epic - Funções avançadas
   {
     id: 'js-closures',
     language: 'javascript',
@@ -283,7 +280,6 @@ botao.addEventListener("click", () => console.log("Clicado!"))`,
       'eventos',
     ],
   },
-  // Epic - Assincronismo
   {
     id: 'js-promises',
     language: 'javascript',
@@ -359,7 +355,6 @@ const usuarios = await response.json()`,
       'api',
     ],
   },
-  // Legendary - Assincronismo
   {
     id: 'js-async-await',
     language: 'javascript',

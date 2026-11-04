@@ -18,7 +18,7 @@ export function ItemDetailPage() {
 
   if (!item) {
     return (
-      <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+      <main className="flex-1 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6">
         <BackLink />
         <p className="mt-6 text-slate-400 light:text-slate-600">{t.itemNotFound}</p>
       </main>
@@ -29,7 +29,7 @@ export function ItemDetailPage() {
   const content = getItemContent(item.id, locale)
 
   return (
-    <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+    <main className="flex-1 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-2xl">
         <BackLink />
 

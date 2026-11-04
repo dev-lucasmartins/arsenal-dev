@@ -15,7 +15,7 @@ export function AboutPage() {
   const content = aboutContent[locale];
 
   return (
-    <main className="flex-1 overflow-y-auto px-4 py-8 sm:px-6 sm:py-10">
+    <main className="flex-1 overflow-y-auto overscroll-contain px-4 py-8 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-2xl">
         <header className="flex flex-col items-center gap-4 text-center">
           <img

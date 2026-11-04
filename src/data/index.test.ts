@@ -27,9 +27,6 @@ describe('allItems', () => {
     expect(danglingRefs).toEqual([])
   })
 
-  // Regressão: isso já aconteceu nesta base de código - o TypeScript não valida que o
-  // `id` de um item em data/ tem uma entrada correspondente nos 3 arquivos de locale,
-  // já que content é um `Record<string, StudyItemContent>` (chave livre).
   it.each(LOCALES.map((l) => l.id))('has i18n content for every item in "%s"', (locale) => {
     const missing = allItems.filter((item) => contentByLocale[locale][item.id] === undefined).map((item) => item.id)
     expect(missing).toEqual([])

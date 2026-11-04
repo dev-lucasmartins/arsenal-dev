@@ -7,9 +7,7 @@ function readStoredTheme(): Theme {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'dark' || stored === 'light') return stored
-  } catch {
-    // localStorage indisponível - usa o padrão
-  }
+  } catch {}
   return 'dark'
 }
 
@@ -20,9 +18,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle('light', theme === 'light')
     try {
       localStorage.setItem(STORAGE_KEY, theme)
-    } catch {
-      // ignora silenciosamente
-    }
+    } catch {}
   }, [theme])
 
   const toggleTheme = useCallback(() => {

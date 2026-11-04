@@ -11,8 +11,6 @@ import { TooltipPortal } from '../tooltip/TooltipPortal'
 import { ConceptIcon } from './ConceptIcon'
 
 const LONG_PRESS_MS = 500
-// Janela em que um foco/hover é tratado como eco sintético de um toque (e não
-// teclado/mouse de verdade), para não abrir o tooltip junto com a navegação.
 const TOUCH_ECHO_MS = 500
 
 export function ConceptIconButton({ item }: { item: StudyItem }) {
@@ -58,8 +56,6 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
 
   function handleTouchEnd(event: React.TouchEvent) {
     clearTimeout(longPressTimer.current)
-    // segurou tempo suficiente para abrir o tooltip - solta o dedo só fecha a
-    // prévia, não navega; um toque curto não passa por aqui e navega normal
     if (isLongPress.current) {
       event.preventDefault()
       closeImmediately()

@@ -8,9 +8,7 @@ function readStoredLocale(): Locale {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'pt-BR' || stored === 'en' || stored === 'es') return stored
-  } catch {
-    // localStorage indisponível (modo privado, etc.) - usa o padrão
-  }
+  } catch {}
   return DEFAULT_LOCALE
 }
 
@@ -20,9 +18,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, locale)
-    } catch {
-      // ignora silenciosamente
-    }
+    } catch {}
   }, [locale])
 
   return <LocaleContext.Provider value={{ locale, setLocale }}>{children}</LocaleContext.Provider>

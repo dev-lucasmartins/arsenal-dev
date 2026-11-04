@@ -15,9 +15,7 @@ export function CodeBlock({ code }: { code: string }) {
       await navigator.clipboard.writeText(code);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // clipboard indisponível - ignora silenciosamente
-    }
+    } catch {}
   }
 
   return (

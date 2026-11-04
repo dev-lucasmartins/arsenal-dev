@@ -1,7 +1,6 @@
 import type { StudyItem } from "../types/study-item";
 
 export const reactItems: StudyItem[] = [
-  // Starter - Fundamentos
   {
     id: "react-components-jsx",
     language: "react",
@@ -85,7 +84,6 @@ function Botao({ texto, onClick }: BotaoProps) {
     buildsInto: ["react-controlled-forms"],
     tags: ["eventos", "onclick", "onchange"],
   },
-  // Basic - Hooks básicos
   {
     id: "react-usestate",
     language: "react",
@@ -172,7 +170,6 @@ function Botao({ texto, onClick }: BotaoProps) {
     buildsInto: ["react-useeffect"],
     tags: ["formulário", "input", "controlled"],
   },
-  // Epic - Hooks de ciclo de vida
   {
     id: "react-useeffect",
     language: "react",
@@ -246,7 +243,6 @@ function Botao({ texto, onClick }: BotaoProps) {
 }`,
     tags: ["error boundary", "erro", "fallback"],
   },
-  // Epic - Hooks de performance
   {
     id: "react-usememo-usecallback",
     language: "react",
@@ -301,7 +297,6 @@ const handleClick = useCallback(() => enviar(id), [id])`,
 }`,
     tags: ["lazy", "suspense", "code splitting"],
   },
-  // Legendary - Compartilhamento de estado
   {
     id: "react-context",
     language: "react",
@@ -382,7 +377,6 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
 </Tabs>`,
     tags: ["compound components", "context", "padrão"],
   },
-  // Legendary - Composição avançada
   {
     id: "react-custom-hooks",
     language: "react",

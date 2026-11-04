@@ -1,7 +1,6 @@
 import type { StudyItem } from '../types/study-item'
 
 export const tailwindItems: StudyItem[] = [
-  // Starter - Fundamentos
   {
     id: 'tw-spacing',
     language: 'tailwind',
@@ -76,7 +75,6 @@ export const tailwindItems: StudyItem[] = [
       'text',
     ],
   },
-  // Basic - Layout
   {
     id: 'tw-flexbox',
     language: 'tailwind',
@@ -153,7 +151,6 @@ export const tailwindItems: StudyItem[] = [
       'truncate',
     ],
   },
-  // Epic - Interatividade
   {
     id: 'tw-states',
     language: 'tailwind',
@@ -225,7 +222,6 @@ export const tailwindItems: StudyItem[] = [
       'shadow',
     ],
   },
-  // Legendary - Avançado
   {
     id: 'tw-transitions-animations',
     language: 'tailwind',

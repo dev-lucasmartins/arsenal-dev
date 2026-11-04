@@ -4,8 +4,6 @@ import { ConceptGrid } from './ConceptGrid'
 
 describe('ConceptGrid', () => {
   it('renders items from every matched language, not just the active sidebar one', () => {
-    // Regressão: a busca abrange todas as linguagens, mas a grid só renderizava
-    // a linguagem ativa no momento na sidebar, escondendo matches de outras.
     renderWithProviders(
       <ConceptGrid
         language="react"

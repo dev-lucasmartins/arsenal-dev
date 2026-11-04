@@ -1,7 +1,6 @@
 import type { StudyItemContent } from "../../types/study-item";
 
 export const esContent: Record<string, StudyItemContent> = {
-  // TypeScript
   "ts-basic-types": {
     name: "Tipado Básico",
     stats: [
@@ -310,7 +309,6 @@ export const esContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "En código de aplicación común, sin un framework que ya use decorators, la complejidad extra rara vez compensa frente a un simple helper de función.",
   },
-  // JavaScript
   "js-variables-primitives": {
     name: "Variables y Tipos Primitivos",
     stats: [
@@ -549,7 +547,6 @@ export const esContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "Para transformaciones simples de arrays ya existentes, los métodos de array (`map`/`filter`) son más directos que un generator.",
   },
-  // React
   "react-components-jsx": {
     name: "Componentes y JSX",
     stats: [
@@ -830,7 +827,6 @@ export const esContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "Si nadie fuera del componente necesita acceso directo al DOM interno, `forwardRef` es indirección sin necesidad.",
   },
-  // Tailwind
   "tw-spacing": {
     name: "Espaciado (Margin & Padding)",
     stats: [
@@ -1056,7 +1052,6 @@ export const esContent: Record<string, StudyItemContent> = {
       "No abuses de `@apply` en un proyecto React - eso recrea el problema que Tailwind resuelve (CSS separado del markup) sin el beneficio de un componente realmente reutilizable.",
   },
 
-  // Testes Unitários
   "test-what-is-unit-test": {
     name: "Qué es una Prueba Unitaria",
     stats: [

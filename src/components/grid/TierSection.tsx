@@ -35,8 +35,6 @@ export function TierSection({
         const isHighlighted = group.category === highlightedCategory;
         return (
           <div
-            // remonta o elemento quando a mesma categoria é selecionada de novo,
-            // para o flash de destaque reiniciar mesmo sem mudar de seção
             key={
               isHighlighted
                 ? `${group.category}-${highlightNonce}`
