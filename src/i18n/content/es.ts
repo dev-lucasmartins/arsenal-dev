@@ -785,6 +785,20 @@ export const esContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "Para un componente simple de una sola pieza, este patrón agrega Context e indirección sin necesidad.",
   },
+  "react-external-state": {
+    name: "Estado Externo (Zustand)",
+    stats: [
+      "El store vive fuera del árbol de componentes, sin necesitar un Provider",
+      "Los componentes solo se re-renderizan cuando cambia el fragmento de estado que leen",
+      "Evita el prop drilling y que Context re-renderice todo el árbol",
+    ],
+    passive:
+      "Librerías como Zustand crean un store centralizado fuera del ciclo de vida de React. A diferencia de Context (que re-renderiza a cada consumidor cuando cualquier parte del valor cambia), cada componente elige exactamente qué fragmento del estado leer, evitando re-renders innecesarios en stores grandes.",
+    whenToUse:
+      "Cuando el estado se comparte entre partes distantes del árbol de componentes, cambia con frecuencia, o Context empieza a causar re-renders perceptibles.",
+    avoidWhen:
+      "Para estado usado por pocos componentes cercanos, useState/useReducer local (o Context, como mucho) ya lo resuelve sin la dependencia extra.",
+  },
   "react-custom-hooks": {
     name: "Custom Hooks",
     stats: [
@@ -826,6 +840,20 @@ export const esContent: Record<string, StudyItemContent> = {
       "Al crear componentes de UI reutilizables (inputs, botones, cards) que quien los use pueda necesitar referenciar directamente, como lo haría con el elemento HTML nativo.",
     avoidWhen:
       "Si nadie fuera del componente necesita acceso directo al DOM interno, `forwardRef` es indirección sin necesidad.",
+  },
+  "react-form-validation": {
+    name: "Validación de Formularios",
+    stats: [
+      "React Hook Form gestiona el estado del formulario sin re-renderizar en cada tecla",
+      "Zod define el schema de validación e infiere el tipo TypeScript automáticamente",
+      "`resolver` conecta el schema de Zod con la validación de React Hook Form",
+    ],
+    passive:
+      "En formularios más grandes, controlar cada input con su propio `useState` se vuelve repetitivo y causa un re-render en cada tecla. React Hook Form resuelve esto con inputs no controlados por defecto, mientras que Zod declara las reglas de validación una sola vez y genera el tipo TypeScript correspondiente.",
+    whenToUse:
+      "En formularios con varias reglas de validación, mensajes de error específicos por campo, o que necesitan validar el mismo formato en varios lugares (frontend y backend, por ejemplo).",
+    avoidWhen:
+      "Para un formulario de uno o dos campos con validación trivial, `useState` más una función de validación simple ya lo resuelve sin la dependencia extra.",
   },
   "tw-spacing": {
     name: "Espaciado (Margin & Padding)",
@@ -1262,5 +1290,369 @@ export const esContent: Record<string, StudyItemContent> = {
       "La integración continua (CI) ejecuta la suite de pruebas automáticamente cada vez que hay un cambio en el repositorio, normalmente antes de permitir el merge de un pull request. Esto garantiza que nadie rompa las pruebas sin darse cuenta.",
     whenToUse:
       "En cualquier proyecto con más de una persona (o más de un día) trabajando en él - CI detecta errores antes de que se conviertan en un problema en producción.",
+  },
+  "a11y-semantic-html": {
+    name: "HTML Semántico",
+    stats: [
+      "Los lectores de pantalla entienden la estructura de la página automáticamente",
+      "Elementos como <nav>, <main> y <button> ya vienen con comportamiento y semántica",
+      "Reduce la necesidad de ARIA - el HTML correcto ya comunica el rol del elemento",
+    ],
+    passive:
+      "El HTML semántico usa elementos que describen el significado del contenido, no solo su apariencia. <nav>, <main>, <article> y <button> informan al navegador y a las tecnologías asistivas cuál es el rol de cada parte de la página, sin necesitar atributos extra.",
+    whenToUse:
+      "Siempre, como primera opción antes de usar un <div> genérico - reserva ARIA para los casos que el HTML puro no cubre.",
+  },
+  "a11y-alt-text": {
+    name: "Texto Alternativo (alt)",
+    stats: [
+      "Describe la imagen para quien usa un lector de pantalla",
+      'alt="" (vacío) marca una imagen puramente decorativa, que debe ser ignorada',
+      "Las imágenes sin alt se anuncian por el nombre del archivo, lo cual confunde",
+    ],
+    passive:
+      "El atributo alt proporciona una descripción textual de una imagen, usada por los lectores de pantalla cuando la imagen no puede mostrarse o interpretarse visualmente. Debe describir la función de la imagen en contexto, no solo lo que muestra.",
+    whenToUse:
+      "En toda <img> que aporte información relevante para entender el contenido de la página.",
+    avoidWhen:
+      'Evita un alt genérico como "imagen" o "foto" - eso no ayuda a nadie; es mejor describir el contenido real.',
+  },
+  "a11y-labels": {
+    name: "Labels en Formularios",
+    stats: [
+      "htmlFor conecta el <label> con el <input> mediante su id",
+      "Hacer clic en el texto del label también enfoca el campo",
+      "Los lectores de pantalla anuncian el label al enfocar el input",
+    ],
+    passive:
+      "Un <label> correctamente asociado a un <input> mediante htmlFor/id garantiza que el campo tenga un nombre accesible, leído en voz alta por lectores de pantalla y clicable para ampliar el área táctil.",
+    whenToUse:
+      "En todo campo de formulario - incluso cuando el diseño visual solo usa un placeholder.",
+    avoidWhen:
+      "No uses el placeholder como sustituto del label - desaparece al escribir y muchos lectores de pantalla no lo anuncian de la misma forma.",
+  },
+  "a11y-heading-hierarchy": {
+    name: "Jerarquía de Headings",
+    stats: [
+      "Solo debe existir un <h1> por página",
+      "Los niveles no deben saltar (de h2 directo a h4, por ejemplo)",
+      "Los lectores de pantalla navegan la página saltando entre headings",
+    ],
+    passive:
+      "La jerarquía de headings (h1 a h6) funciona como el índice de un documento. Las tecnologías asistivas permiten navegar directamente entre headings, así que el orden y el nivel importan tanto como el texto en sí.",
+    whenToUse:
+      "Al estructurar cualquier página o sección de contenido con título y subtítulos.",
+    avoidWhen:
+      "Evita elegir el nivel del heading según el tamaño de fuente deseado - usa CSS para el estilo y la jerarquía semántica para la estructura.",
+  },
+  "a11y-focus-visible": {
+    name: "Foco Visible",
+    stats: [
+      ":focus-visible muestra el anillo de foco solo para navegación por teclado",
+      "A diferencia de :focus, no aparece al hacer clic con el mouse",
+      "Quitar el outline sin reemplazarlo es uno de los fallos de accesibilidad más comunes",
+    ],
+    passive:
+      ":focus-visible es una pseudo-clase CSS que aplica estilo de foco solo cuando el navegador entiende que el usuario está navegando por teclado (o tecnología asistiva), evitando que el anillo de foco aparezca en cada clic del mouse.",
+    whenToUse:
+      "En cualquier elemento interactivo personalizado (botones, enlaces, ítems de menú) que elimine el outline predeterminado del navegador.",
+    avoidWhen:
+      "Nunca elimines outline: none sin añadir un estilo de foco visible equivalente en su lugar.",
+  },
+  "a11y-tab-order": {
+    name: "Orden de Tabulación",
+    stats: [
+      'tabIndex="0" incluye el elemento en el orden natural del DOM',
+      'tabIndex="-1" lo quita de la navegación con Tab, pero permite enfocarlo vía JS',
+      "Un tabIndex positivo (1, 2...) casi siempre rompe el orden esperado",
+    ],
+    passive:
+      "El orden de tabulación determina en qué secuencia Tab mueve el foco entre elementos. Por defecto, sigue el orden del DOM - la forma más predecible y recomendada de garantizar una navegación coherente.",
+    whenToUse:
+      "tabIndex={-1} para enfocar un elemento mediante código (ej: abrir un modal); tabIndex={0} para hacer enfocable un elemento no interactivo de forma nativa (como un <div>).",
+    avoidWhen:
+      "Evita el tabIndex positivo - crea un orden paralelo que confunde más de lo que ayuda.",
+  },
+  "a11y-skip-link": {
+    name: "Skip Link",
+    stats: [
+      "Permite saltar la navegación repetitiva e ir directo al contenido",
+      "Permanece invisible hasta recibir foco por teclado",
+      "Es el primer elemento enfocable de la página",
+    ],
+    passive:
+      "Un skip link es un atajo, generalmente oculto visualmente, que aparece al navegar por teclado y permite saltar directo al contenido principal, sin pasar por todos los ítems del menú en cada página.",
+    whenToUse:
+      "En cualquier página con navegación, sidebar o encabezado extenso antes del contenido principal.",
+  },
+  "a11y-keyboard-nav": {
+    name: "Navegación por Teclado",
+    stats: [
+      "Enter y Espacio activan botones; Enter activa enlaces",
+      "Escape cierra modales, menús desplegables y tooltips",
+      "Las flechas navegan dentro de menús, pestañas y listas (roving tabindex)",
+    ],
+    passive:
+      'Todo elemento interactivo personalizado necesita responder al teclado igual que respondería el elemento nativo equivalente - un "botón" hecho con <div onClick> no es operable por teclado sin este trabajo extra.',
+    whenToUse:
+      "Siempre que construyas un componente interactivo personalizado (menú, modal, tooltip, carrusel) que no sea un elemento HTML nativo.",
+  },
+  "a11y-aria-label": {
+    name: "aria-label / aria-labelledby",
+    stats: [
+      "aria-label define un nombre accesible directamente como string",
+      "aria-labelledby referencia el id de otro elemento como nombre",
+      "Esencial en botones de ícono, sin texto visible",
+    ],
+    passive:
+      "Cuando un elemento interactivo no tiene suficiente texto visible para describirlo (como un botón solo con ícono), aria-label o aria-labelledby proporcionan ese nombre a los lectores de pantalla, sin cambiar la apariencia visual.",
+    whenToUse:
+      "En botones de ícono, campos de búsqueda sin label visible, o cuando el texto visible es ambiguo fuera de contexto.",
+    avoidWhen:
+      "No uses aria-label para duplicar un texto que ya está visible - puede generar una lectura repetida o inconsistente.",
+  },
+  "a11y-aria-live": {
+    name: "aria-live",
+    stats: [
+      "polite espera a que el lector de pantalla termine su habla actual",
+      "assertive interrumpe de inmediato para anunciar",
+      "Se usa para notificaciones, toasts y mensajes de estado dinámicos",
+    ],
+    passive:
+      "aria-live marca una región de la página como dinámica, haciendo que el lector de pantalla anuncie automáticamente cualquier cambio de contenido dentro de ella, incluso sin que el usuario mueva el foco hasta allí.",
+    whenToUse:
+      "Para notificar eventos que ocurren sin interacción directa: un resultado de búsqueda actualizado, un toast de éxito, un contador de carrito.",
+    avoidWhen:
+      "Evita assertive para mensajes no urgentes - interrumpir la lectura constantemente es una mala experiencia.",
+  },
+  "a11y-aria-expanded": {
+    name: "aria-expanded / aria-controls",
+    stats: [
+      "aria-expanded informa si un panel está abierto o cerrado",
+      "aria-controls apunta al id del elemento controlado",
+      "Común en acordeones, menús desplegables y paneles colapsables",
+    ],
+    passive:
+      "aria-expanded comunica el estado (abierto/cerrado) de un elemento controlador a los lectores de pantalla, mientras que aria-controls establece la relación entre el botón y el panel que controla.",
+    whenToUse:
+      "En cualquier botón que abra o cierre otro elemento en pantalla (acordeón, menú desplegable, panel colapsable).",
+  },
+  "a11y-roles": {
+    name: "Roles ARIA",
+    stats: [
+      'role="dialog" + aria-modal="true" define un modal',
+      'role="listbox"/"option" define una lista seleccionable personalizada',
+      "Solo debe usarse cuando el HTML nativo no cubre el caso",
+    ],
+    passive:
+      "Los roles ARIA redefinen el papel semántico de un elemento para las tecnologías asistivas, permitiendo construir componentes como modales, pestañas y comboboxes personalizados que el HTML nativo no ofrece - pero es un refuerzo, no un sustituto del comportamiento real del componente.",
+    whenToUse:
+      "Al construir un widget personalizado (modal, tabs, combobox) que no tiene un elemento HTML nativo equivalente.",
+    avoidWhen:
+      'Evita redefinir el role de un elemento que ya tiene la semántica correcta (ej: role="button" en un <button> es redundante e inútil).',
+  },
+  "a11y-color-contrast": {
+    name: "Contraste de Colores",
+    stats: [
+      "WCAG AA exige 4.5:1 para texto normal, 3:1 para texto grande",
+      "WCAG AAA (más estricto) exige 7:1 para texto normal",
+      "Herramientas como el DevTools de Chrome calculan el contraste automáticamente",
+    ],
+    passive:
+      "El contraste de color mide la diferencia de luminosidad entre el texto y el fondo. Un contraste insuficiente dificulta la lectura para personas con baja visión, daltonismo, o simplemente bajo luz solar directa.",
+    whenToUse:
+      "Al definir cualquier combinación de color de texto y fondo, especialmente en temas personalizados.",
+    avoidWhen:
+      'Evita depender solo del color para transmitir información (ej: "los campos en rojo tienen error") sin otro indicador visual, como un ícono o texto.',
+  },
+  "a11y-reduced-motion": {
+    name: "prefers-reduced-motion",
+    stats: [
+      "Media query que detecta la preferencia del sistema operativo del usuario",
+      "Las animaciones grandes pueden causar náuseas o incomodidad (trastornos vestibulares)",
+      "Normalmente no se trata de eliminar la animación, sino de reducirla o simplificarla",
+    ],
+    passive:
+      "prefers-reduced-motion es una media query CSS que refleja una configuración del sistema operativo, permitiendo reducir o eliminar animaciones para usuarios sensibles al movimiento, sin afectar a quienes no activaron esa preferencia.",
+    whenToUse:
+      "En cualquier animación grande, efecto parallax o transición no esencial para la funcionalidad.",
+  },
+  "a11y-form-errors": {
+    name: "Mensajes de Error Accesibles",
+    stats: [
+      "aria-invalid marca el campo como inválido para los lectores de pantalla",
+      "aria-describedby conecta el campo con el mensaje de error",
+      'role="alert" anuncia el mensaje automáticamente al aparecer',
+    ],
+    passive:
+      "Un mensaje de error solo visible junto al campo no es suficiente - aria-invalid y aria-describedby garantizan que el lector de pantalla también comunique qué campo falló y por qué, en el momento correcto.",
+    whenToUse:
+      "En cualquier validación de formulario que muestre un mensaje de error junto a un campo.",
+  },
+  "a11y-screen-reader-testing": {
+    name: "Probando con Lector de Pantalla",
+    stats: [
+      "VoiceOver (Mac/iOS) y NVDA (Windows, gratuito) son los más usados para probar",
+      "axe DevTools audita violaciones automáticas de accesibilidad en la página",
+      "Probar manualmente con el mouse desconectado revela problemas reales de navegación",
+    ],
+    passive:
+      "Las herramientas automáticas (como axe) solo detectan una fracción de los problemas de accesibilidad - probar de verdad con un lector de pantalla revela problemas de orden de lectura, foco y anuncios que ninguna herramienta automática detecta.",
+    whenToUse:
+      "Antes de lanzar cualquier flujo crítico (checkout, registro, formulario principal) y periódicamente durante el desarrollo.",
+  },
+  "perf-web-vitals": {
+    name: "Core Web Vitals",
+    stats: [
+      "LCP mide el tiempo hasta que el elemento visible más grande carga",
+      "INP mide la capacidad de respuesta a las interacciones del usuario",
+      'CLS mide cuánto "salta" el layout durante la carga',
+    ],
+    passive:
+      "Core Web Vitals son las métricas que Google usa para evaluar la experiencia real de carga e interactividad de una página, y también influyen en el ranking de búsqueda.",
+    whenToUse:
+      "Como referencia para priorizar cualquier trabajo de rendimiento - empieza siempre midiendo lo que ya está mal.",
+  },
+  "perf-image-optimization": {
+    name: "Optimización de Imágenes",
+    stats: [
+      "WebP/AVIF generan archivos mucho más pequeños que JPEG/PNG con calidad similar",
+      'width/height explícitos evitan que el layout "salte" cuando la imagen carga (CLS)',
+      'loading="lazy" retrasa la carga de imágenes fuera de la pantalla inicial',
+    ],
+    passive:
+      "Las imágenes suelen ser el mayor peso de una página. Formatos modernos, dimensiones correctas y carga diferida (lazy) reducen drásticamente el tiempo de carga sin sacrificar calidad perceptible.",
+    whenToUse:
+      "En toda imagen que no sea crítica para el primer paint (above the fold).",
+    avoidWhen:
+      'No uses loading="lazy" en la imagen principal (hero) de la página - eso retrasa justamente el LCP.',
+  },
+  "perf-critical-rendering-path": {
+    name: "Critical Rendering Path",
+    stats: [
+      "El CSS en <head> bloquea el primer renderizado hasta descargarse por completo",
+      "Los scripts con defer esperan a que el HTML termine de parsearse antes de ejecutarse",
+      "Los scripts con async se ejecutan en cuanto cargan, sin orden garantizado",
+    ],
+    passive:
+      "El camino crítico de renderizado es la secuencia de pasos que el navegador debe completar antes de pintar los primeros píxeles en pantalla: descargar HTML, construir el DOM, descargar y procesar CSS, armar el árbol de renderizado.",
+    whenToUse:
+      'Al decidir dónde colocar <script> y <link rel="stylesheet">, y qué es realmente crítico para el primer render.',
+  },
+  "perf-bundle-size": {
+    name: "Tamaño del Bundle",
+    stats: [
+      "Las herramientas de análisis muestran el peso real de cada dependencia",
+      "El tree-shaking elimina código no utilizado de las librerías",
+      "Importar la librería completa en vez de una función específica aumenta el bundle sin necesidad",
+    ],
+    passive:
+      "El tamaño final del bundle de JavaScript afecta directamente el tiempo de descarga y parseo antes de que la página sea interactiva. Visualizar qué compone ese bundle es el primer paso para reducirlo.",
+    whenToUse:
+      "Periódicamente, y siempre antes de añadir una nueva dependencia pesada al proyecto.",
+  },
+  "perf-code-splitting": {
+    name: "Code Splitting por Ruta",
+    stats: [
+      "Cada ruta genera su propio archivo JS (chunk)",
+      "El usuario descarga solo el código de la página que está visitando",
+      "Herramientas de build como Vite hacen esto automáticamente con import() dinámico",
+    ],
+    passive:
+      "El code splitting divide el bundle único en varios archivos más pequeños, cargados según se necesiten. Dividir por ruta es la estrategia más común, ya que el usuario raramente necesita el código de todas las páginas a la vez.",
+    whenToUse:
+      "En cualquier aplicación con múltiples rutas/páginas, especialmente si algunas usan librerías pesadas que otras no usan.",
+  },
+  "perf-font-loading": {
+    name: "Carga de Fuentes",
+    stats: [
+      "font-display: swap muestra una fuente de reserva hasta que la personalizada carga",
+      'El <link rel="preload"> prioriza la descarga de una fuente crítica',
+      "Las fuentes variables (variable fonts) reducen la cantidad de archivos descargados",
+    ],
+    passive:
+      "Sin font-display, el navegador puede dejar el texto invisible (FOIT) hasta que la fuente personalizada cargue. font-display: swap reemplaza eso mostrando una fuente del sistema de inmediato y sustituyéndola en cuanto la fuente real esté lista (FOUT), evitando un bloqueo visual del contenido.",
+    whenToUse:
+      "En cualquier fuente personalizada cargada vía @font-face, especialmente la usada en el texto principal de la página.",
+  },
+  "perf-service-worker-cache": {
+    name: "Caché con Service Worker",
+    stats: [
+      "Un Service Worker corre en paralelo a la página, interceptando peticiones de red",
+      "La Cache API almacena respuestas de red para reutilizarlas, incluso offline",
+      "La estrategia cache-first prioriza velocidad; network-first prioriza datos actualizados",
+    ],
+    passive:
+      "Un Service Worker es un script que el navegador ejecuta en segundo plano, separado de la página, y que puede interceptar peticiones de red para servir respuestas desde un caché local - permitiendo carga instantánea en visitas repetidas e incluso funcionamiento offline.",
+    whenToUse:
+      "En aplicaciones que necesitan funcionar offline (PWA) o que se benefician de una carga instantánea de assets ya visitados.",
+    avoidWhen:
+      "Evita cachear respuestas que cambian con frecuencia (ej: datos de usuario) con una estrategia cache-first sin un mecanismo de invalidación.",
+  },
+  "perf-prefetch": {
+    name: "Prefetch / Preload",
+    stats: [
+      "Prefetch descarga un recurso que probablemente se necesitará pronto, con baja prioridad",
+      "Preload descarga un recurso crítico para la carga actual, con alta prioridad",
+      "Precargar al pasar el mouse sobre un enlace anticipa la navegación, reduciendo la espera percibida",
+    ],
+    passive:
+      "Prefetch y preload son indicaciones para que el navegador priorice la descarga de recursos antes de que sean estrictamente necesarios, aprovechando momentos de inactividad de red para acelerar la siguiente interacción del usuario.",
+    whenToUse:
+      "Al pasar el mouse sobre un enlace a una ruta pesada, o en recursos que sabes con alta confianza que se usarán a continuación.",
+    avoidWhen:
+      "Evita el prefetch demasiado agresivo en conexiones lentas o limitadas (datos móviles) - puede desperdiciar los datos del usuario.",
+  },
+  "perf-virtualization": {
+    name: "Virtualización de Listas",
+    stats: [
+      "Renderiza solo los ítems visibles en la ventana de scroll, más un pequeño margen",
+      "Permite listas de miles de ítems sin trabar la UI",
+      "Librerías comunes: react-virtual, react-window, react-virtualized",
+    ],
+    passive:
+      "La virtualización renderiza solo los elementos de una lista que están (o están por estar) visibles en pantalla, sustituyendo el resto por espacio vacío calculado, manteniendo bajo el número de nodos DOM sin importar el tamaño real de la lista.",
+    whenToUse:
+      "En listas o tablas muy grandes (cientos o miles de ítems) donde renderizar todo de una vez causa una lentitud perceptible.",
+    avoidWhen:
+      "Evita virtualizar listas pequeñas - la complejidad extra no compensa la ganancia, que es imperceptible.",
+  },
+  "perf-debounce-throttle": {
+    name: "Debounce & Throttle",
+    stats: [
+      "Debounce espera un período de silencio antes de ejecutar la acción",
+      "Throttle ejecuta la acción como máximo una vez por intervalo de tiempo",
+      "Esenciales para inputs de búsqueda, resize y scroll, que disparan eventos con alta frecuencia",
+    ],
+    passive:
+      'Debounce y throttle controlan la frecuencia con la que se ejecuta una función en respuesta a eventos disparados repetidamente. Debounce es ideal para "esperar a que el usuario deje de escribir"; throttle es ideal para "como máximo una vez cada X ms", como en un scroll.',
+    whenToUse:
+      "En campos de búsqueda (debounce), y en listeners de scroll/resize (throttle).",
+  },
+  "perf-web-workers": {
+    name: "Web Workers",
+    stats: [
+      "Ejecuta JavaScript en un hilo separado del hilo principal (UI)",
+      "No tiene acceso directo al DOM - se comunica mediante mensajes (postMessage)",
+      "Ideal para procesamiento pesado que no debe trabar la interfaz",
+    ],
+    passive:
+      "El hilo principal del navegador es responsable tanto de ejecutar JavaScript como de renderizar la UI - un cálculo pesado en él traba la interfaz. Los Web Workers corren en paralelo, en un hilo aislado, liberando al hilo principal para seguir siendo responsivo.",
+    whenToUse:
+      "En procesamiento de datos pesado (parseo de archivos grandes, cálculos complejos) que, de otro modo, congelaría la interfaz.",
+    avoidWhen:
+      "Evítalo para tareas rápidas - el costo de comunicación entre hilos puede ser mayor que el procesamiento mismo.",
+  },
+  "perf-caching-strategies": {
+    name: "Estrategias de Caché",
+    stats: [
+      'staleTime define por cuánto tiempo un dato en caché se considera "fresco"',
+      "Los datos frescos no disparan una nueva petición al remontar el componente",
+      "stale-while-revalidate muestra el caché antiguo y actualiza en segundo plano",
+    ],
+    passive:
+      "Las librerías de data fetching como React Query mantienen un caché de respuestas de peticiones, evitando repetir la misma llamada de red y permitiendo mostrar datos al instante mientras se actualizan en segundo plano.",
+    whenToUse:
+      "En cualquier dato obtenido por red que se reutiliza en múltiples componentes o remontajes de pantalla.",
   },
 };

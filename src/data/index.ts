@@ -1,5 +1,7 @@
 import type { Language, StudyItem, Tier } from "../types/study-item";
+import { accessibilityItems } from "./accessibility";
 import { javascriptItems } from "./javascript";
+import { performanceItems } from "./performance";
 import { reactItems } from "./react";
 import { tailwindItems } from "./tailwind";
 import { testingItems } from "./testing";
@@ -11,6 +13,8 @@ export const allItems: StudyItem[] = [
   ...reactItems,
   ...tailwindItems,
   ...testingItems,
+  ...accessibilityItems,
+  ...performanceItems,
 ];
 
 export const itemsById = new Map(allItems.map((item) => [item.id, item]));

@@ -785,6 +785,20 @@ export const enContent: Record<string, StudyItemContent> = {
     avoidWhen:
       "For a simple, single-piece component, this pattern adds Context and indirection without need.",
   },
+  "react-external-state": {
+    name: "External State (Zustand)",
+    stats: [
+      "The store lives outside the component tree, with no Provider needed",
+      "Components only re-render when the slice of state they read changes",
+      "Avoids prop drilling and Context re-rendering the whole tree",
+    ],
+    passive:
+      "Libraries like Zustand create a centralized store outside React's lifecycle. Unlike Context (which re-renders every consumer when any part of the value changes), each component picks exactly which slice of state to read, avoiding unnecessary re-renders in large stores.",
+    whenToUse:
+      "When state is shared across distant parts of the component tree, changes frequently, or Context starts causing noticeable re-renders.",
+    avoidWhen:
+      "For state used by a few nearby components, local useState/useReducer (or Context, at most) already solves it without the extra dependency.",
+  },
   "react-custom-hooks": {
     name: "Custom Hooks",
     stats: [
@@ -826,6 +840,20 @@ export const enContent: Record<string, StudyItemContent> = {
       "When creating reusable UI components (inputs, buttons, cards) that whoever uses them might need to reference directly, as they would with the native HTML element.",
     avoidWhen:
       "If nobody outside the component needs direct access to its internal DOM, `forwardRef` is indirection without need.",
+  },
+  "react-form-validation": {
+    name: "Form Validation",
+    stats: [
+      "React Hook Form manages form state without re-rendering on every keystroke",
+      "Zod defines the validation schema and infers the TypeScript type automatically",
+      "`resolver` connects the Zod schema to React Hook Form's validation",
+    ],
+    passive:
+      "In larger forms, controlling every input with its own `useState` gets repetitive and causes a re-render on every keystroke. React Hook Form solves this with uncontrolled inputs by default, while Zod declares the validation rules once and generates the matching TypeScript type.",
+    whenToUse:
+      "In forms with several validation rules, field-specific error messages, or that need to validate the same shape in multiple places (frontend and backend, for example).",
+    avoidWhen:
+      "For a one- or two-field form with trivial validation, `useState` plus a simple validation function already solves it without the extra dependency.",
   },
   "tw-spacing": {
     name: "Spacing (Margin & Padding)",
@@ -1261,5 +1289,369 @@ export const enContent: Record<string, StudyItemContent> = {
       "Continuous integration (CI) runs the test suite automatically whenever the repository changes, usually before allowing a pull request to be merged. This ensures no one breaks the tests without noticing.",
     whenToUse:
       "In any project with more than one person (or more than one day) working on it - CI catches mistakes before they become a production problem.",
+  },
+  "a11y-semantic-html": {
+    name: "Semantic HTML",
+    stats: [
+      "Screen readers understand the page structure automatically",
+      "Elements like <nav>, <main>, and <button> already come with behavior and semantics",
+      "Reduces the need for ARIA - the right HTML already communicates the element's role",
+    ],
+    passive:
+      "Semantic HTML uses elements that describe the meaning of the content, not just its appearance. <nav>, <main>, <article>, and <button> tell the browser and assistive technologies what role each part of the page plays, with no extra attributes needed.",
+    whenToUse:
+      "Always, as the first choice before reaching for a generic <div> - save ARIA for the cases plain HTML doesn't cover.",
+  },
+  "a11y-alt-text": {
+    name: "Alt Text",
+    stats: [
+      "Describes the image for screen reader users",
+      'alt="" (empty) marks a purely decorative image, which should be ignored',
+      "Images without alt are announced by their filename, which is confusing",
+    ],
+    passive:
+      "The alt attribute provides a text description of an image, used by screen readers when the image can't be displayed or visually interpreted. It should describe the image's function in context, not just what it shows.",
+    whenToUse:
+      "On every <img> that carries information relevant to understanding the page's content.",
+    avoidWhen:
+      'Avoid generic alt text like "image" or "photo" - it doesn\'t help anyone; describing the actual content is better.',
+  },
+  "a11y-labels": {
+    name: "Form Labels",
+    stats: [
+      "htmlFor connects the <label> to the <input> via its id",
+      "Clicking the label's text also focuses the field",
+      "Screen readers announce the label when the input receives focus",
+    ],
+    passive:
+      "A <label> correctly associated with an <input> via htmlFor/id guarantees the field has an accessible name, read aloud by screen readers and clickable to expand the touch target.",
+    whenToUse:
+      "On every form field - even when the visual design only shows a placeholder.",
+    avoidWhen:
+      "Don't use a placeholder as a substitute for a label - it disappears while typing and many screen readers don't announce it the same way.",
+  },
+  "a11y-heading-hierarchy": {
+    name: "Heading Hierarchy",
+    stats: [
+      "There should only be one <h1> per page",
+      "Levels shouldn't skip (e.g. jumping from h2 straight to h4)",
+      "Screen readers navigate the page by jumping between headings",
+    ],
+    passive:
+      "Heading hierarchy (h1 through h6) works like a document's table of contents. Assistive technologies let users navigate directly between headings, so the order and level matter just as much as the text itself.",
+    whenToUse:
+      "Whenever structuring any page or content section with a title and subtitles.",
+    avoidWhen:
+      "Avoid picking a heading level based on the font size you want - use CSS for styling and semantic hierarchy for structure.",
+  },
+  "a11y-focus-visible": {
+    name: "Visible Focus",
+    stats: [
+      ":focus-visible shows the focus ring only for keyboard navigation",
+      "Unlike :focus, it doesn't appear on a mouse click",
+      "Removing the outline without replacing it is one of the most common accessibility failures",
+    ],
+    passive:
+      ":focus-visible is a CSS pseudo-class that applies focus styling only when the browser determines the user is navigating via keyboard (or assistive technology), avoiding a focus ring on every mouse click.",
+    whenToUse:
+      "On any custom interactive element (buttons, links, menu items) that removes the browser's default outline.",
+    avoidWhen:
+      "Never remove outline: none without adding an equivalent visible focus style in its place.",
+  },
+  "a11y-tab-order": {
+    name: "Tab Order",
+    stats: [
+      'tabIndex="0" includes the element in the natural DOM order',
+      'tabIndex="-1" removes it from Tab navigation, but allows focus via JS',
+      "Positive tabIndex (1, 2...) almost always breaks the expected order",
+    ],
+    passive:
+      "Tab order determines the sequence in which Tab moves focus between elements. By default, it follows DOM order - the most predictable and recommended way to guarantee coherent navigation.",
+    whenToUse:
+      "tabIndex={-1} to focus an element programmatically (e.g. opening a modal); tabIndex={0} to make a natively non-interactive element (like a <div>) focusable.",
+    avoidWhen:
+      "Avoid positive tabIndex - it creates a parallel order that confuses more than it helps.",
+  },
+  "a11y-skip-link": {
+    name: "Skip Link",
+    stats: [
+      "Lets users skip repetitive navigation and jump straight to the content",
+      "Stays invisible until it receives keyboard focus",
+      "Is the first focusable element on the page",
+    ],
+    passive:
+      "A skip link is a shortcut, usually visually hidden, that appears when navigating by keyboard and lets users jump straight to the main content, without going through every menu item on every page.",
+    whenToUse:
+      "On any page with navigation, a sidebar, or an extensive header before the main content.",
+  },
+  "a11y-keyboard-nav": {
+    name: "Keyboard Navigation",
+    stats: [
+      "Enter and Space activate buttons; Enter activates links",
+      "Escape closes modals, dropdowns, and tooltips",
+      "Arrow keys navigate inside menus, tabs, and lists (roving tabindex)",
+    ],
+    passive:
+      'Every custom interactive element needs to respond to the keyboard the same way the equivalent native element would - a "button" built with <div onClick> isn\'t keyboard-operable without this extra work.',
+    whenToUse:
+      "Whenever building a custom interactive component (menu, modal, tooltip, carousel) that isn't a native HTML element.",
+  },
+  "a11y-aria-label": {
+    name: "aria-label / aria-labelledby",
+    stats: [
+      "aria-label sets an accessible name directly as a string",
+      "aria-labelledby references another element's id as the name",
+      "Essential on icon buttons with no visible text",
+    ],
+    passive:
+      "When an interactive element doesn't have enough visible text to describe it (like an icon-only button), aria-label or aria-labelledby provide that name to screen readers, without changing the visual appearance.",
+    whenToUse:
+      "On icon buttons, search fields without a visible label, or when the visible text is ambiguous out of context.",
+    avoidWhen:
+      "Don't use aria-label to duplicate text that's already visible - it can cause repeated or inconsistent reading.",
+  },
+  "a11y-aria-live": {
+    name: "aria-live",
+    stats: [
+      "polite waits for the screen reader to finish its current speech",
+      "assertive interrupts immediately to announce",
+      "Used for notifications, toasts, and dynamic status messages",
+    ],
+    passive:
+      "aria-live marks a region of the page as dynamic, making the screen reader automatically announce any content change inside it, even without the user moving focus there.",
+    whenToUse:
+      "To notify about events that happen without direct interaction: an updated search result, a success toast, a cart counter.",
+    avoidWhen:
+      "Avoid assertive for non-urgent messages - constantly interrupting speech is a bad experience.",
+  },
+  "a11y-aria-expanded": {
+    name: "aria-expanded / aria-controls",
+    stats: [
+      "aria-expanded reports whether a panel is open or closed",
+      "aria-controls points to the id of the controlled element",
+      "Common in accordions, dropdowns, and collapsible menus",
+    ],
+    passive:
+      "aria-expanded communicates a controlling element's state (open/closed) to screen readers, while aria-controls establishes the relationship between the button and the panel it controls.",
+    whenToUse:
+      "On any button that opens or closes another element on screen (accordion, dropdown menu, collapsible panel).",
+  },
+  "a11y-roles": {
+    name: "ARIA Roles",
+    stats: [
+      'role="dialog" + aria-modal="true" defines a modal',
+      'role="listbox"/"option" defines a custom selectable list',
+      "Should only be used when native HTML doesn't cover the case",
+    ],
+    passive:
+      "ARIA roles redefine an element's semantic role for assistive technologies, making it possible to build widgets like custom modals, tabs, and comboboxes that native HTML doesn't offer - but it's a reinforcement, not a substitute for the component's real behavior.",
+    whenToUse:
+      "When building a custom widget (modal, tabs, combobox) that has no equivalent native HTML element.",
+    avoidWhen:
+      'Avoid redefining the role of an element that already has the right semantics (e.g. role="button" on a <button> is redundant and useless).',
+  },
+  "a11y-color-contrast": {
+    name: "Color Contrast",
+    stats: [
+      "WCAG AA requires 4.5:1 for normal text, 3:1 for large text",
+      "WCAG AAA (stricter) requires 7:1 for normal text",
+      "Tools like Chrome DevTools calculate contrast automatically",
+    ],
+    passive:
+      "Color contrast measures the difference in luminosity between text and background. Insufficient contrast makes text hard to read for people with low vision, color blindness, or simply reading under direct sunlight.",
+    whenToUse:
+      "When defining any text-and-background color combination, especially in custom themes.",
+    avoidWhen:
+      'Avoid relying on color alone to convey information (e.g. "red fields have an error") without another visual indicator, like an icon or text.',
+  },
+  "a11y-reduced-motion": {
+    name: "prefers-reduced-motion",
+    stats: [
+      "A media query that detects the user's operating system preference",
+      "Large animations can cause nausea or discomfort (vestibular disorders)",
+      "Usually the goal isn't to remove the animation, but to reduce or simplify it",
+    ],
+    passive:
+      "prefers-reduced-motion is a CSS media query that reflects an operating system setting, letting you reduce or remove animations for motion-sensitive users, without affecting users who haven't enabled that preference.",
+    whenToUse:
+      "On any large animation, parallax effect, or transition that isn't essential to functionality.",
+  },
+  "a11y-form-errors": {
+    name: "Accessible Error Messages",
+    stats: [
+      "aria-invalid marks the field as invalid for screen readers",
+      "aria-describedby connects the field to the error message",
+      'role="alert" announces the message automatically as it appears',
+    ],
+    passive:
+      "An error message that's only visually next to the field isn't enough - aria-invalid and aria-describedby ensure the screen reader also communicates which field failed and why, at the right moment.",
+    whenToUse:
+      "In any form validation that shows an error message next to a field.",
+  },
+  "a11y-screen-reader-testing": {
+    name: "Testing with a Screen Reader",
+    stats: [
+      "VoiceOver (Mac/iOS) and NVDA (Windows, free) are the most commonly used for testing",
+      "axe DevTools audits the page for automatic accessibility violations",
+      "Manually testing with the mouse unplugged reveals real navigation problems",
+    ],
+    passive:
+      "Automated tools (like axe) only catch a fraction of accessibility issues - actually testing with a screen reader reveals reading order, focus, and announcement problems that no automated tool detects.",
+    whenToUse:
+      "Before launching any critical flow (checkout, sign-up, main form) and periodically during development.",
+  },
+  "perf-web-vitals": {
+    name: "Core Web Vitals",
+    stats: [
+      "LCP measures the time until the largest visible element loads",
+      "INP measures responsiveness to user interactions",
+      'CLS measures how much the layout "jumps" during loading',
+    ],
+    passive:
+      "Core Web Vitals are the metrics Google uses to evaluate a page's real loading and interactivity experience, and they also influence search ranking.",
+    whenToUse:
+      "As a reference for prioritizing any performance work - always start by measuring what's already bad.",
+  },
+  "perf-image-optimization": {
+    name: "Image Optimization",
+    stats: [
+      "WebP/AVIF produce much smaller files than JPEG/PNG at similar quality",
+      "Explicit width/height prevent the layout from jumping when the image loads (CLS)",
+      'loading="lazy" delays loading images that are off-screen initially',
+    ],
+    passive:
+      "Images are usually the heaviest part of a page. Modern formats, correct dimensions, and deferred (lazy) loading drastically cut load time without sacrificing perceptible quality.",
+    whenToUse:
+      "On every image that isn't critical to the first paint (above the fold).",
+    avoidWhen:
+      'Don\'t use loading="lazy" on the page\'s main (hero) image - that delays the very LCP you\'re trying to improve.',
+  },
+  "perf-critical-rendering-path": {
+    name: "Critical Rendering Path",
+    stats: [
+      "CSS in <head> blocks the first render until it's fully downloaded",
+      "Scripts with defer wait for HTML parsing to finish before executing",
+      "Scripts with async execute as soon as they load, with no guaranteed order",
+    ],
+    passive:
+      "The critical rendering path is the sequence of steps the browser must complete before painting the first pixels on screen: download HTML, build the DOM, download and process CSS, assemble the render tree.",
+    whenToUse:
+      'When deciding where to place <script> and <link rel="stylesheet">, and what is actually critical for the first render.',
+  },
+  "perf-bundle-size": {
+    name: "Bundle Size",
+    stats: [
+      "Analysis tools show the real weight of each dependency",
+      "Tree-shaking removes unused code from libraries",
+      "Importing an entire library instead of a specific function needlessly inflates the bundle",
+    ],
+    passive:
+      "The final JavaScript bundle size directly affects download and parsing time before the page becomes interactive. Visualizing what makes up that bundle is the first step toward shrinking it.",
+    whenToUse:
+      "Periodically, and always before adding a new heavy dependency to the project.",
+  },
+  "perf-code-splitting": {
+    name: "Route-Based Code Splitting",
+    stats: [
+      "Each route generates its own JS file (chunk)",
+      "The user only downloads the code for the page they're visiting",
+      "Build tools like Vite do this automatically with dynamic import()",
+    ],
+    passive:
+      "Code splitting breaks a single bundle into several smaller files, loaded as needed. Splitting by route is the most common strategy, since users rarely need the code for every page at once.",
+    whenToUse:
+      "In any application with multiple routes/pages, especially if some use heavy libraries that others don't.",
+  },
+  "perf-font-loading": {
+    name: "Font Loading",
+    stats: [
+      "font-display: swap shows a fallback font until the custom one loads",
+      '<link rel="preload"> prioritizes downloading a critical font',
+      "Variable fonts reduce the number of files downloaded",
+    ],
+    passive:
+      "Without font-display, the browser may leave text invisible (FOIT) until the custom font loads. font-display: swap replaces that by showing a system font immediately and swapping it in once the real font is ready (FOUT), avoiding a visual block on the content.",
+    whenToUse:
+      "On any custom font loaded via @font-face, especially one used for the page's main body text.",
+  },
+  "perf-service-worker-cache": {
+    name: "Service Worker Caching",
+    stats: [
+      "A Service Worker runs in parallel to the page, intercepting network requests",
+      "The Cache API stores network responses for reuse, including offline",
+      "A cache-first strategy prioritizes speed; network-first prioritizes fresh data",
+    ],
+    passive:
+      "A Service Worker is a script the browser runs in the background, separate from the page, that can intercept network requests to serve responses from a local cache - enabling instant loading on repeat visits and even offline functionality.",
+    whenToUse:
+      "In applications that need to work offline (PWA) or that benefit from instant loading of previously visited assets.",
+    avoidWhen:
+      "Avoid caching frequently changing responses (e.g. user data) with a cache-first strategy without an invalidation mechanism.",
+  },
+  "perf-prefetch": {
+    name: "Prefetch / Preload",
+    stats: [
+      "Prefetch downloads a resource likely to be needed soon, at low priority",
+      "Preload downloads a resource critical to the current load, at high priority",
+      "Preloading on a link's hover anticipates navigation, reducing perceived wait",
+    ],
+    passive:
+      "Prefetch and preload are hints telling the browser to prioritize downloading resources before they're strictly needed, taking advantage of idle network moments to speed up the user's next interaction.",
+    whenToUse:
+      "On the hover of a link to a heavy route, or on resources you're confident will be used next.",
+    avoidWhen:
+      "Avoid overly aggressive prefetching on slow or limited connections (mobile data) - it can waste the user's data.",
+  },
+  "perf-virtualization": {
+    name: "List Virtualization",
+    stats: [
+      "Renders only the items visible in the scroll window, plus a small margin",
+      "Allows lists with thousands of items without freezing the UI",
+      "Common libraries: react-virtual, react-window, react-virtualized",
+    ],
+    passive:
+      "Virtualization renders only the list elements that are (or are about to be) visible on screen, replacing the rest with calculated empty space, keeping the DOM node count low regardless of the list's real size.",
+    whenToUse:
+      "On very large lists or tables (hundreds or thousands of items) where rendering everything at once causes noticeable slowness.",
+    avoidWhen:
+      "Avoid virtualizing small lists - the extra complexity isn't worth the gain, which is imperceptible.",
+  },
+  "perf-debounce-throttle": {
+    name: "Debounce & Throttle",
+    stats: [
+      "Debounce waits for a period of silence before running the action",
+      "Throttle runs the action at most once per time interval",
+      "Essential for search inputs, resize, and scroll, which fire events at high frequency",
+    ],
+    passive:
+      'Debounce and throttle control how often a function runs in response to repeatedly fired events. Debounce is ideal for "wait until the user stops typing"; throttle is ideal for "at most once every X ms", like on a scroll.',
+    whenToUse:
+      "On search fields (debounce), and on scroll/resize listeners (throttle).",
+  },
+  "perf-web-workers": {
+    name: "Web Workers",
+    stats: [
+      "Runs JavaScript on a thread separate from the main (UI) thread",
+      "Has no direct DOM access - communicates via messages (postMessage)",
+      "Ideal for heavy processing that shouldn't freeze the interface",
+    ],
+    passive:
+      "The browser's main thread is responsible for both running JavaScript and rendering the UI - a heavy calculation on it freezes the interface. Web Workers run in parallel, on an isolated thread, freeing the main thread to stay responsive.",
+    whenToUse:
+      "For heavy data processing (parsing a large file, complex calculations) that would otherwise freeze the interface.",
+    avoidWhen:
+      "Avoid it for quick tasks - the cost of communication between threads can be greater than the processing itself.",
+  },
+  "perf-caching-strategies": {
+    name: "Caching Strategies",
+    stats: [
+      'staleTime defines how long a cached value is considered "fresh"',
+      "Fresh data doesn't trigger a new request when the component remounts",
+      "stale-while-revalidate shows the old cache and updates in the background",
+    ],
+    passive:
+      "Data-fetching libraries like React Query keep a cache of request responses, avoiding repeating the same network call and letting you show data instantly while updating it in the background.",
+    whenToUse:
+      "On any network-fetched data that's reused across multiple components or screen remounts.",
   },
 };

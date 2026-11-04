@@ -167,7 +167,7 @@ function Botao({ texto, onClick }: BotaoProps) {
     </form>
   )
 }`,
-    buildsInto: ["react-useeffect"],
+    buildsInto: ["react-useeffect", "react-form-validation"],
     tags: ["formulário", "input", "controlled"],
   },
   {
@@ -316,7 +316,7 @@ function App() {
   const tema = useContext(TemaContext)
   return <button className={tema}>Clique aqui</button>
 }`,
-    buildsInto: ["react-usereducer", "react-compound-components"],
+    buildsInto: ["react-usereducer", "react-compound-components", "react-external-state"],
     tags: ["context", "provider", "prop drilling"],
   },
   {
@@ -376,6 +376,27 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
   <Tab id="config">Configurações</Tab>
 </Tabs>`,
     tags: ["compound components", "context", "padrão"],
+  },
+  {
+    id: "react-external-state",
+    language: "react",
+    category: "Compartilhamento de estado",
+    tier: "legendary",
+    icon: "Boxes",
+    declaration: `const useCarrinho = create<{ itens: Item[]; adicionar: (item: Item) => void }>((set) => ({
+  itens: [],
+  adicionar: (item) => set((estado) => ({ itens: [...estado.itens, item] })),
+}))`,
+    example: `function BotaoAdicionar({ item }: { item: Item }) {
+  const adicionar = useCarrinho((estado) => estado.adicionar)
+  return <button onClick={() => adicionar(item)}>Adicionar</button>
+}
+
+function ContadorCarrinho() {
+  const total = useCarrinho((estado) => estado.itens.length)
+  return <span>{total} itens</span>
+}`,
+    tags: ["zustand", "store externo", "estado global"],
   },
   {
     id: "react-custom-hooks",
@@ -442,5 +463,37 @@ function Tabs({ children, inicial }: { children: React.ReactNode; inicial: strin
   )
 }`,
     tags: ["forwardref", "ref", "componente"],
+  },
+  {
+    id: "react-form-validation",
+    language: "react",
+    category: "Composição avançada",
+    tier: "legendary",
+    icon: "FormInput",
+    declaration: `const schema = z.object({ email: z.string().email() })
+const { register, handleSubmit, formState } = useForm({ resolver: zodResolver(schema) })`,
+    example: `const schema = z.object({
+  email: z.string().email("E-mail inválido"),
+  senha: z.string().min(8, "Mínimo de 8 caracteres"),
+})
+
+function FormularioLogin() {
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+  })
+
+  function onSubmit(dados: z.infer<typeof schema>) {
+    console.log(dados)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("email")} />
+      {errors.email && <span>{errors.email.message}</span>}
+      <button type="submit">Entrar</button>
+    </form>
+  )
+}`,
+    tags: ["react-hook-form", "zod", "validação de schema"],
   },
 ];

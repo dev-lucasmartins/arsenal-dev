@@ -89,6 +89,21 @@ export const categoryLabels: Record<string, Record<Locale, string>> = {
     en: "Testing Components",
     es: "Probando Componentes",
   },
+  "Teclado e Foco": {
+    "pt-BR": "Teclado e Foco",
+    en: "Keyboard & Focus",
+    es: "Teclado y Foco",
+  },
+  ARIA: {
+    "pt-BR": "ARIA",
+    en: "ARIA",
+    es: "ARIA",
+  },
+  Carregamento: {
+    "pt-BR": "Carregamento",
+    en: "Loading",
+    es: "Carga",
+  },
 };
 
 export function translateCategory(category: string, locale: Locale): string {

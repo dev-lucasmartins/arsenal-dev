@@ -1,4 +1,11 @@
-export type Language = "typescript" | "javascript" | "react" | "tailwind" | "testing";
+export type Language =
+  | "typescript"
+  | "javascript"
+  | "react"
+  | "tailwind"
+  | "testing"
+  | "accessibility"
+  | "performance";
 
 export type Tier = "starter" | "basic" | "epic" | "legendary";
 
@@ -30,4 +37,6 @@ export const LANGUAGES: { id: Language; label: string }[] = [
   { id: "react", label: "React" },
   { id: "tailwind", label: "Tailwind CSS" },
   { id: "testing", label: "Unit Testing" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "performance", label: "Performance" },
 ];
