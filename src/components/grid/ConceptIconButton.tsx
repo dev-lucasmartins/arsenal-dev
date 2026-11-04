@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useHoverIntent } from '../../hooks/useHoverIntent'
 import { useLocale } from '../../hooks/useLocale'
@@ -22,24 +22,6 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
   const lastTouchAt = useRef(0)
   const isLongPress = useRef(false)
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-
-  // depois de um long-press, o tooltip fica "fixado" (não fecha ao soltar o
-  // dedo) até o usuário tocar fora dele - dá tempo de rolar conteúdo longo
-  useEffect(() => {
-    if (!isPinned) return
-
-    function handleOutsideTouch(event: TouchEvent) {
-      const target = event.target as Node
-      if (target instanceof Element && target.closest('[data-tooltip-portal]')) return
-
-      setIsPinned(false)
-      closeImmediately()
-      if (anchorEl?.contains(target)) event.preventDefault()
-    }
-
-    document.addEventListener('touchstart', handleOutsideTouch, { passive: false })
-    return () => document.removeEventListener('touchstart', handleOutsideTouch)
-  }, [isPinned, anchorEl, closeImmediately])
 
   const isOpen = isHovering
   const style = tierStyles[item.tier]
@@ -101,6 +83,11 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
     closeImmediately()
   }
 
+  function handleRequestClose() {
+    setIsPinned(false)
+    closeImmediately()
+  }
+
   return (
     <>
       <Link
@@ -143,7 +130,7 @@ export function ConceptIconButton({ item }: { item: StudyItem }) {
       </Link>
 
       <TooltipPortal anchorEl={anchorEl} isOpen={isOpen} onMouseEnter={cancelTimers} onMouseLeave={handleMouseLeave}>
-        <ConceptTooltip item={item} />
+        <ConceptTooltip item={item} onRequestClose={isPinned ? handleRequestClose : undefined} />
       </TooltipPortal>
     </>
   )

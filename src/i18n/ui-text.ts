@@ -24,6 +24,7 @@ interface UiText {
   aboutNavLabel: string;
   openMenu: string;
   closeMenu: string;
+  closeTooltip: string;
   searchResultsHeading: string;
   tierLabels: Record<Tier, string>;
 }
@@ -53,6 +54,7 @@ export const uiText: Record<Locale, UiText> = {
     aboutNavLabel: "Sobre o Projeto",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
+    closeTooltip: "Fechar",
     searchResultsHeading: "Resultados da busca",
     tierLabels: {
       starter: "Starter",
@@ -85,6 +87,7 @@ export const uiText: Record<Locale, UiText> = {
     aboutNavLabel: "About the Project",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    closeTooltip: "Close",
     searchResultsHeading: "Search results",
     tierLabels: {
       starter: "Starter",
@@ -117,6 +120,7 @@ export const uiText: Record<Locale, UiText> = {
     aboutNavLabel: "Acerca del Proyecto",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
+    closeTooltip: "Cerrar",
     searchResultsHeading: "Resultados de la búsqueda",
     tierLabels: {
       starter: "Starter",

@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { itemsById } from "../../data";
@@ -10,7 +11,13 @@ import { ConceptIcon } from "../grid/ConceptIcon";
 import { TierBadge } from "../TierBadge";
 import { CodeBlock } from "./CodeBlock";
 
-export function ConceptTooltip({ item }: { item: StudyItem }) {
+export function ConceptTooltip({
+  item,
+  onRequestClose,
+}: {
+  item: StudyItem;
+  onRequestClose?: () => void;
+}) {
   const style = tierStyles[item.tier];
   const { locale, t } = useLocale();
   const content = getItemContent(item.id, locale);
@@ -38,10 +45,20 @@ export function ConceptTooltip({ item }: { item: StudyItem }) {
         >
           <ConceptIcon name={item.icon} className="h-5 w-5" />
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h3 className="truncate text-[15px] font-semibold text-accent-text">{content.name}</h3>
           <TierBadge tier={item.tier} className="mt-1" />
         </div>
+        {onRequestClose && (
+          <button
+            type="button"
+            onClick={onRequestClose}
+            aria-label={t.closeTooltip}
+            className="shrink-0 rounded-sm p-1 text-slate-400 light:text-slate-500 hover:text-accent-text-strong"
+          >
+            <X size={18} />
+          </button>
+        )}
       </header>
 
       <div className="max-h-[70vh] overflow-y-auto overscroll-contain px-3 py-3 text-[13px] text-slate-300 light:text-slate-700">
