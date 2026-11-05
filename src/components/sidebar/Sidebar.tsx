@@ -56,12 +56,12 @@ export function Sidebar({
 
       <nav
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col bg-surface px-3 py-4 transition-transform duration-200",
-          "lg:static lg:z-auto lg:w-64 lg:shrink-0 lg:translate-x-0 lg:border-r lg:border-slate-700/60 lg:light:border-slate-200",
+          "fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col bg-surface transition-transform duration-200",
+          "lg:static lg:z-auto lg:w-64 lg:shrink-0 lg:translate-x-0 ",
           isOpen && "translate-x-0",
         )}
       >
-        <div className="flex h-full min-h-0 flex-col rounded-2xl bg-surface-raised shadow-sm">
+        <div className="flex h-full min-h-0 flex-col  bg-surface-raised shadow-sm">
           <div className="flex items-center justify-between px-3 pt-3 lg:hidden">
             <span className="text-sm font-bold uppercase tracking-wider text-slate-400 light:text-slate-500">
               {t.aboutNavLabel}
